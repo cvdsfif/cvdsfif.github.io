@@ -8,9 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest $npm_config_dir"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.43.12",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primereact": "^10.6.6",
@@ -18,6 +19,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "^1.43.12",
+    "@tanstack/router-plugin": "^1.43.12",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
