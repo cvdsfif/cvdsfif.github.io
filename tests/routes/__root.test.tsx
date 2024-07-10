@@ -1,7 +1,7 @@
 import { RouteComponent } from "@tanstack/react-router"
-import { fireEvent, getByTestId, render } from "@testing-library/react"
+import { fireEvent, getByTestId, render, waitFor } from "@testing-library/react"
+import { screen } from '@testing-library/dom'
 import "@testing-library/jest-dom"
-
 
 describe("Testing the root route", () => {
     let extractedComponent: any
@@ -28,6 +28,17 @@ describe("Testing the root route", () => {
                 useRouter: () => ({ invalidate: routerInvalidateMock })
             })
         )
+
+        jest.mock(
+            "primereact/dropdown",
+            () => ({
+                Dropdown: (props: { "data-testid": string, onChange: any }) => <select
+                    data-testid={props["data-testid"]}
+                    onChange={e => { props.onChange(e.target) }}
+                ><option>fr</option></select>
+            })
+        )
+
         await import("../../src/routes/__root")
     })
 
@@ -45,10 +56,10 @@ describe("Testing the root route", () => {
 
     test("Should load the component without exceptions", async () => {
         // GIVEN the root route's main component
-        const component = extractedComponent!.component()
+        const Component = extractedComponent!.component
 
         // WHEN we render the main component
-        const { container } = render(component)
+        const { container } = render(<Component />)
 
         // THEN it renders without exceptions and we get the root element in it
         expect(getByTestId(container, "routeRoot")).toBeDefined()
@@ -99,21 +110,18 @@ describe("Testing the root route", () => {
         expect(returnValue).toEqual({ lang: "en" })
     })
 
-    test("Should show the language change controls", async () => {
+    test("Should show the contents in the selected language", async () => {
         // GIVEN English is selected as a language
         routeContextMock.mockReturnValue({ lang: "en" })
 
         // AND the root route's main component
-        const component = extractedComponent!.component()
+        const Component = extractedComponent!.component
 
         // WHEN we render the main component
-        const { container } = render(component)
+        const { container } = render(<Component />)
 
-        // THEN the option for English is shown but is not clickable
-        expect(getByTestId(container, "showLanguageen")).toBeDefined()
-
-        // AND the option for French is shown and is clickable
-        expect(getByTestId(container, "linkToLanguagefr")).toBeDefined()
+        // THEN the page is displayed in English
+        expect(getByTestId(container, "languageValue")).toHaveTextContent("en")
     })
 
     test("Should change the language when the link to change is clicked", async () => {
@@ -121,17 +129,22 @@ describe("Testing the root route", () => {
         routeContextMock.mockReturnValue({ lang: "en" })
 
         // AND the root route's main component rendered
-        const component = extractedComponent!.component()
-        const { container } = render(component)
+        const Component = extractedComponent!.component
+        const { container } = render(<Component />)
 
         // WHEN the link to change the language is clicked
-        const link = getByTestId(container, "linkToLanguagefr")
-        await fireEvent.click(link)
+        const link = getByTestId(container, "languageSelector")
+        await fireEvent.change(link, { target: { value: "fr" } })
 
         // THEN the handler changes the language in the local storage
         expect(localStorageSetter).toHaveBeenCalledWith("userLanguage", "fr")
 
         // AND it invalidates the router to show the page with a correct language
         expect(routerInvalidateMock).toHaveBeenCalled()
+
+        // AND the menu is correctly displayed
+        const menu = getByTestId(container, "menuButton")
+        await fireEvent.click(menu)
+        await waitFor(() => expect(screen.getByTestId("homeLink")).toBeDefined())
     })
 })

@@ -1,7 +1,7 @@
 {
   "name": "nzcom-client",
   "private": true,
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,6 +19,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@happy-dom/jest-environment": "^14.12.3",
     "@tanstack/router-devtools": "^1.43.12",
     "@tanstack/router-plugin": "^1.43.12",
     "@testing-library/jest-dom": "^6.4.6",
@@ -32,8 +33,13 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "happy-dom": "^14.12.3",
+    "install": "^0.13.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "npm": "^10.8.1",
+    "react-select-event": "^5.5.1",
+    "styled-components": "^6.1.11",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",

@@ -39,6 +39,6 @@ describe("Testing the about page", () => {
         const { container } = render(component)
 
         // THEN the contents are displayed in the correct language
-        expect(getByTestId(container, "content")).toHaveTextContent("A propos")
+        expect(getByTestId(container, "content")).toHaveTextContent("Andalousie")
     })
 })
