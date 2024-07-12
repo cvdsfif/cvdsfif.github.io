@@ -43,6 +43,8 @@ const tableFr: { [key: string]: string } = {
     En dehors du domaine professionnel, je m'intéresse à l'étude des langues, aux voyages, à la musique et à la numismatique. 
     Quant à la littérature, c'est plus un mode de vie qu'une simple passion...
     `,
+    "Articles": "Publications",
+    "Read": "Lire"
 }
 
 const tableRu: { [key: string]: string } = {
@@ -69,6 +71,8 @@ const tableRu: { [key: string]: string } = {
         Кроме собственно работы, я изучаю языки, путешествую, интересуюсь музыкой и нумизматикой. Что же касается литературы,
         то это больше, чем увлечение, это скорее образ жизни...
     `,
+    "Àrticles": "Публикации",
+    "Read": "Читать"
 }
 
 const languages = [

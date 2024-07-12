@@ -47,6 +47,19 @@ export const Route = createRootRoute({
                         <span className="pi pi-info-circle" />
                         <span className="mx-2">{translate("About", lang)}</span>
                     </Link>
+            },
+            {
+                label: "IT",
+                icon: "pi pi-desktop",
+                items: [
+                    {
+                        template: () =>
+                            <Link to="/it/articles" className="flex align-items-center p-menuitem-link">
+                                <span className="pi pi-pencil" />
+                                <span className="mx-2">{translate("Articles", lang)}</span>
+                            </Link>
+                    }
+                ]
             }
         ] as MenuItem[]
 
@@ -76,26 +89,13 @@ export const Route = createRootRoute({
         return <div
             data-testid="routeRoot"
             className="flex flex-column h-full w-full bg-gray-100 align-items-center justify-content-center">
-            <div className="flex flex-grow-0 w-full">
+            <div className="flex w-full flex-grow-0">
                 <Toolbar
                     className="p-2 w-full"
                     start={barStart} end={barEnd}
                 />
             </div>
-            <div className="flex flex-grow-1 align-items-center justify-content-center">
-                <Outlet />
-            </div>
-            <div className="flex flex-grow-0 w-full">
-                <a
-                    href='https://www.facebook.com/nzykov'
-                    target='_blank'
-                ><img src='fbstd.png' style={{ maxHeight: "20px" }} /></a>
-                &nbsp;
-                <a
-                    href='https://www.instagram.com/nz_cvds'
-                    target='_blank'
-                ><img src='instastd.png' style={{ maxHeight: "20px" }} /></a>
-            </div>
+            <Outlet />
         </div>
     },
 })

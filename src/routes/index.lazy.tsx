@@ -16,25 +16,26 @@ export const Route = createLazyFileRoute('/')({
         const lang = context.lang
 
         const cardHeader = () => <img src="/nztransp2407.png" alt="NZ" style={{ maxWidth: "70vh", maxHeight: "50vh" }} />
-        return <Wrapper>
-            <Card title={translate("Nikit Zykov", lang)} header={cardHeader} data-testid="nameDisplay">
-                <Button
-                    data-testid="linkToMail"
-                    icon="pi pi-envelope"
-                    tooltip={translate("E-mail address", lang)}
-                    text
-                    onClick={() => window.open("mailto:nikit@zykov.com", "_blank")}
-                >&nbsp;nikit@zykov.com</Button>
-                <Button
-                    data-testid="linkToTG"
-                    icon="pi pi-telegram"
-                    tooltip={translate("Telegram", lang)}
-                    text
-                    onClick={() => window.open("https://t.me/nz_cvds", "_blank")}
-                >&nbsp;nz_cvds</Button>
-            </Card>
-        </Wrapper>
-
+        return <div className="flex flex-grow-1 align-items-center justify-content-center overflow-y-scroll">
+            <Wrapper>
+                <Card title={translate("Nikit Zykov", lang)} header={cardHeader} data-testid="nameDisplay">
+                    <Button
+                        data-testid="linkToMail"
+                        icon="pi pi-envelope"
+                        tooltip={translate("E-mail address", lang)}
+                        text
+                        onClick={() => window.open("mailto:nikit@zykov.com", "_blank")}
+                    >&nbsp;nikit@zykov.com</Button>
+                    <Button
+                        data-testid="linkToTG"
+                        icon="pi pi-telegram"
+                        tooltip={translate("Telegram", lang)}
+                        text
+                        onClick={() => window.open("https://t.me/nz_cvds", "_blank")}
+                    >&nbsp;nz_cvds</Button>
+                </Card>
+            </Wrapper>
+        </div >
 
     }
 })
