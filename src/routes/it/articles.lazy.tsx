@@ -8,6 +8,7 @@ const MediumArticle = ({ url, img, title, id }: { url: string, img: string, titl
     const lang = context.lang
 
     return <Card
+        key={`mediumCard${Math.round(Math.random() * 1_000_000)}`}
         title={title}
         className='m-2'
         style={{ maxWidth: "300px", minHeight: "350px" }}

@@ -14,15 +14,17 @@ const RepositoryCard = ({ title, subtitle, repositories }: { title: string, subt
     const lang = context.lang
 
     return <Card
+        key={`repCard${Math.round(Math.random() * 1_000_000)}`}
         title={title}
         subTitle={subtitle}
         className='m-2 ml-6'
         style={{ width: "90%" }}
     >{repositories.map(repository => <div
+        key={`repLine${Math.round(Math.random() * 1_000_000)}`}
         className='flex align-items-center flex-wrap vertical-align-middle flex-row'
     >
         <div><Button
-            data-testid={repository.id ? `repositoryLink${repository.id}` : undefined}
+            data-testid={repository.id ? `repositoryLink${repository.id} ` : undefined}
             onClick={() => window.open(repository.url, "_blank")}
             text
         >{repository.url.split("/").pop()}</Button></div>
