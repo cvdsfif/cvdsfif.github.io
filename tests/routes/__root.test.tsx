@@ -7,6 +7,7 @@ describe("Testing the root route", () => {
     let extractedComponent: any
     const routerInvalidateMock = jest.fn()
     const routeContextMock = jest.fn()
+    let invalidateContext = false
 
     beforeAll(async () => {
         jest.mock(
@@ -16,7 +17,12 @@ describe("Testing the root route", () => {
                 createRootRoute: jest.fn().mockImplementation((param: RouteComponent<any> | undefined) => {
                     extractedComponent = param
                     return ({
-                        useRouteContext: routeContextMock,
+                        useRouteContext: () => {
+                            if (invalidateContext) {
+                                return undefined
+                            }
+                            return routeContextMock
+                        }
                     })
                 }),
                 // We simply stub the outlet component
@@ -47,11 +53,17 @@ describe("Testing the root route", () => {
     let localStorageSetter: any
 
     beforeEach(() => {
+        jest.useFakeTimers()
         jest.resetAllMocks()
         routeContextMock.mockReturnValue({ lang: "" })
         languageFront = jest.spyOn(window.navigator, "language", "get")
         localStorageGetter = jest.spyOn(Storage.prototype, "getItem")
         localStorageSetter = jest.spyOn(Storage.prototype, "setItem")
+    })
+
+    afterEach(() => {
+        jest.useRealTimers()
+        invalidateContext = false
     })
 
     test("Should load the component without exceptions", async () => {
@@ -146,5 +158,21 @@ describe("Testing the root route", () => {
         const menu = getByTestId(container, "menuButton")
         await fireEvent.click(menu)
         await waitFor(() => expect(screen.getByTestId("homeLink")).toBeDefined())
+    })
+
+    test("Should catch the Tanstack Router's invalid context bug", async () => {
+        // GIVEN the component receives an undefined context
+        invalidateContext = true
+
+        // WHEN loading the route component
+        const Component = extractedComponent!.component
+        const { container } = render(<Component />)
+
+        // THEN the "Loading..." placeholder is loaded
+        expect(getByTestId(container, "loadingPlaceholder")).toBeDefined()
+
+        // AND after a certain waiting time the router is
+        jest.advanceTimersToNextTimer()
+        expect(routerInvalidateMock).toHaveBeenCalled()
     })
 })

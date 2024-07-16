@@ -12,7 +12,6 @@ import { useRef, useState } from 'react'
 
 export const Route = createRootRoute({
     beforeLoad: () => {
-        console.log("beforeLoad")
         const defaultLang =
             localStorage.getItem("userLanguage") ||
             window.navigator.language ||
@@ -21,7 +20,6 @@ export const Route = createRootRoute({
         return { lang: defaultLang }
     },
     component: () => {
-        console.log("Rendering")
         const router = useRouter()
         const context = Route.useRouteContext()
         const menu = useRef(null as TieredMenu | null)
@@ -36,9 +34,9 @@ export const Route = createRootRoute({
         const [selectedLang, setSelectedLang] = useState(languages.find(l => lang?.startsWith(l.value))?.value ?? "en")
 
         if (!context) {
-            console.log("Invalidating due to empty context")
+            console.warn("Invalidating due to empty context")
             setTimeout(() => router.invalidate(), 100)
-            return <div>Loading...</div>
+            return <div data-testid="loadingPlaceholder">Loading...</div>
         }
 
         const menuItems = [

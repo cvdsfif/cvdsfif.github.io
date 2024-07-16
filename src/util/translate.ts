@@ -72,7 +72,8 @@ const tableRu: { [key: string]: string } = {
         то это больше, чем увлечение, это скорее образ жизни...
     `,
     "Àrticles": "Публикации",
-    "Read": "Читать"
+    "Read": "Читать",
+    "Publications": "Публикации"
 }
 
 const languages = [
