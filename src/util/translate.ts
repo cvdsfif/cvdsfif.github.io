@@ -17,6 +17,13 @@ const tableEn: { [key: string]: string } = {
     Outside of the professional field, I am interested in the study of languages, travel, music and numismatics. 
     As for literature, it is more a meaning of life than a simple passion...
     `,
+    "repositories.thisSite.about": "Full code of this site with tests",
+    "repositories.typizator.subtitle": "Well-typed API integration for AWS CDK",
+    "repositories.typizator.about": "Runtime type schemas for Typescript",
+    "repositories.typizator-handler.about": "Well-typed API handlers for AWS Lambdas with database integration",
+    "repositories.cdk-typescript-lib.about": "CDK stack integration for well-typed Typescript libraries",
+    "repositories.typizator-client.about": "Web client libraries for well-typed Typescript APIs implemented with Typizator",
+    "repositories.typizator-test.about": "Test utilities for Typizator"
 }
 
 const tableFr: { [key: string]: string } = {
@@ -44,7 +51,10 @@ const tableFr: { [key: string]: string } = {
     Quant à la littérature, c'est plus un mode de vie qu'une simple passion...
     `,
     "Articles": "Publications",
-    "Read": "Lire"
+    "Read": "Lire",
+    "Code repositories": "Codes source",
+    "This site": "Ce site",
+    "repositories.thisSite.about": "Code complet de ce site avec des tests",
 }
 
 const tableRu: { [key: string]: string } = {
@@ -73,7 +83,10 @@ const tableRu: { [key: string]: string } = {
     `,
     "Àrticles": "Публикации",
     "Read": "Читать",
-    "Publications": "Публикации"
+    "Publications": "Публикации",
+    "Code repositories": "Репозитории кода",
+    "This site": "Этот сайт",
+    "repositories.thisSite.about": "Полный код этого сайта с тестами",
 }
 
 const languages = [
