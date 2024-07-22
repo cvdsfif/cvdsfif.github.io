@@ -47,6 +47,14 @@ export const Route = createLazyFileRoute('/it/repositories')({
                     ]}
                 />
                 <RepositoryCard
+                    title={translate("Telegram bots examples", lang)}
+                    subtitle={translate("repositories.tgbot.subtitle", lang)}
+                    repositories={[
+                        { about: "repositories.tgbot.plain", url: "https://github.com/cvdsfif/tg-cdk-plain" },
+                        { about: "repositories.tgbot.lib", url: "https://github.com/cvdsfif/tg-cdk-lib" },
+                    ]}
+                />
+                <RepositoryCard
                     title={translate("Typizator", lang)}
                     subtitle={translate("repositories.typizator.subtitle", lang)}
                     repositories={[

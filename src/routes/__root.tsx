@@ -31,13 +31,16 @@ export const Route = createRootRoute({
             { value: "fr", label: "FR" },
             { value: "ru", label: "RU" },
         ]
-        const [selectedLang, setSelectedLang] = useState(languages.find(l => lang?.startsWith(l.value))?.value ?? "en")
+        const [selectedLang, setSelectedLang] = useState(languages.find(l => lang?.startsWith(l.value))?.value ?? "")
+        console.log(context)
 
         if (!context) {
             console.warn("Invalidating due to empty context")
             setTimeout(() => router.invalidate(), 100)
             return <div data-testid="loadingPlaceholder">Loading...</div>
         }
+
+        if (selectedLang === "" && lang) setSelectedLang(lang)
 
         const menuItems = [
             {

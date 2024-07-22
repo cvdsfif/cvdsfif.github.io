@@ -23,7 +23,10 @@ const tableEn: { [key: string]: string } = {
     "repositories.typizator-handler.about": "Well-typed API handlers for AWS Lambdas with database integration",
     "repositories.cdk-typescript-lib.about": "CDK stack integration for well-typed Typescript libraries",
     "repositories.typizator-client.about": "Web client libraries for well-typed Typescript APIs implemented with Typizator",
-    "repositories.typizator-test.about": "Test utilities for Typizator"
+    "repositories.typizator-test.about": "Test utilities for Typizator",
+    "repositories.tgbot.subtitle": "Two versions of the Hello World bot deployed on AWS CDK",
+    "repositories.tgbot.plain": "Bot implemented as a plain CDK stack",
+    "repositories.tgbot.lib": "Bot implemented using the cdk-typescript-lib library",
 }
 
 const tableFr: { [key: string]: string } = {
@@ -55,6 +58,16 @@ const tableFr: { [key: string]: string } = {
     "Code repositories": "Codes source",
     "This site": "Ce site",
     "repositories.thisSite.about": "Code complet de ce site avec des tests",
+    "Telegram bots examples": "Exemples des bots Telegram",
+    "repositories.typizator.subtitle": "Intégration des APIs bien typés pour AWS CDK",
+    "repositories.typizator.about": "Schémas de types disponibles en temps d'exécution pour Typescript",
+    "repositories.typizator-handler.about": "Gestionnaires API bien typés pour des Lambdas AWS avec l'intégration des bases des données",
+    "repositories.cdk-typescript-lib.about": "Intégration du stack CDK pour les bibliothèques Typescript bien typées",
+    "repositories.typizator-client.about": "Bibliothèques client Web pour des APIs Typescript bien typés implémentés avec Typizator",
+    "repositories.typizator-test.about": "Outils test pour Typizator",
+    "repositories.tgbot.subtitle": "Deux versions du bot Hello World bot deployé sur AWS CDK",
+    "repositories.tgbot.plain": "Bot implémenté comme un stack simple CDK",
+    "repositories.tgbot.lib": "Bot implémenté avec la bibliothèque cdk-typescript-lib",
 }
 
 const tableRu: { [key: string]: string } = {
@@ -81,12 +94,22 @@ const tableRu: { [key: string]: string } = {
         Кроме собственно работы, я изучаю языки, путешествую, интересуюсь музыкой и нумизматикой. Что же касается литературы,
         то это больше, чем увлечение, это скорее образ жизни...
     `,
-    "Àrticles": "Публикации",
+    "Articles": "Статьи",
     "Read": "Читать",
     "Publications": "Публикации",
     "Code repositories": "Репозитории кода",
     "This site": "Этот сайт",
     "repositories.thisSite.about": "Полный код этого сайта с тестами",
+    "Telegram bots examples": "Примеры Telegram-ботов",
+    "repositories.typizator.subtitle": "Интеграция типизированных API для AWS CDK",
+    "repositories.typizator.about": "Схемы типов, доступные во время исполнения для Typescript",
+    "repositories.typizator-handler.about": "Типизированные обработчики API для AWS Lambdas с интеграцией баз данных",
+    "repositories.cdk-typescript-lib.about": "Интеграция стека CDK для типизированных библиотекTypescript",
+    "repositories.typizator-client.about": "Клиентские Web-библиотеки для типизированных APIs под Typescript, разрабатываемых с помощью библиотеки Typizator",
+    "repositories.typizator-test.about": "Тестовые утилиты для Typizator",
+    "repositories.tgbot.subtitle": "Две версии Hello World-бота, разворачиваемые на AWS CDK",
+    "repositories.tgbot.plain": "Бот, реализованный как простой стек CDK",
+    "repositories.tgbot.lib": "Бот, реализованный через библиотеку cdk-typescript-lib",
 }
 
 const languages = [

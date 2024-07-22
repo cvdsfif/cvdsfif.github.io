@@ -29,7 +29,11 @@ export const Route = createLazyFileRoute('/it/articles')({
         return <>
             <h1 className='w-full' data-testid="title">{translate("Publications", lang)}</h1>
             <div className='flex flex-row flex-wrap flex-grow-1 overflow-y-visible bg-white min-w-0 min-h-0'>
-
+                <MediumArticle
+                    url='https://medium.com/stackademic/telegram-bot-test-develop-and-host-on-aws-with-cdk-8a744a71cc0e?sk=5df9c6cd47135b8dbda30a3004019fe8'
+                    img='https://miro.medium.com/v2/resize:fit:1280/format:webp/1*lKCGsCrqnY7DPCXmgrJYAg.jpeg'
+                    title='Telegram bot: test, develop and host on AWS with CDK'
+                />
                 <MediumArticle
                     url='https://medium.com/stackademic/using-tanstack-router-in-react-spas-tdd-way-0aa7d2aabfff?sk=3b859aa49e74398655f3383ad00b25af'
                     img='https://miro.medium.com/v2/resize:fit:1280/format:webp/1*3-50g8IzTqO6zxCkdUfi3w.jpeg'

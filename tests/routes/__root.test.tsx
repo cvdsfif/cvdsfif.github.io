@@ -17,12 +17,7 @@ describe("Testing the root route", () => {
                 createRootRoute: jest.fn().mockImplementation((param: RouteComponent<any> | undefined) => {
                     extractedComponent = param
                     return ({
-                        useRouteContext: () => {
-                            if (invalidateContext) {
-                                return undefined
-                            }
-                            return routeContextMock
-                        }
+                        useRouteContext: () => invalidateContext ? undefined : routeContextMock(),
                     })
                 }),
                 // We simply stub the outlet component
@@ -133,7 +128,7 @@ describe("Testing the root route", () => {
         const { container } = render(<Component />)
 
         // THEN the page is displayed in English
-        expect(getByTestId(container, "languageValue")).toHaveTextContent("en")
+        await waitFor(() => expect(getByTestId(container, "languageValue")).toHaveTextContent("en"))
     })
 
     test("Should change the language when the link to change is clicked", async () => {
@@ -174,5 +169,24 @@ describe("Testing the root route", () => {
         // AND after a certain waiting time the router is
         jest.advanceTimersToNextTimer()
         expect(routerInvalidateMock).toHaveBeenCalled()
+    })
+
+    test("Should recover after the Tanstack's router context bug and correctly set the language", async () => {
+        // GIVEN the component receives an undefined context
+        invalidateContext = true
+        const Component = extractedComponent!.component
+
+        // AND the component is rendered once
+        const { container, rerender } = render(<Component />)
+
+        // AND the context is validated and a language is set
+        invalidateContext = false
+        routeContextMock.mockReturnValue({ lang: "en" })
+
+        // WHEN rerendering the component
+        rerender(<Component />)
+
+        // THEN the "Loading..." placeholder is loaded
+        await waitFor(() => expect(getByTestId(container, "languageValue")).toHaveTextContent("en"))
     })
 })
