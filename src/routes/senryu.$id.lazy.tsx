@@ -660,17 +660,18 @@ export const Route = createLazyFileRoute('/senryu/$id')({
                     backgroundImage: `url(${cards[currentCard].picture})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: "center",
-                    minWidth: '80vh',
+                    minWidth: '70vh',
                     maxWidth: '90vh',
-                    minHeight: '80vh',
-                    maxHeight: '90vh',
+                    minHeight: '50vh',
+                    maxHeight: '90vh'
                 }}
             >
                 <div
                     className='bg-white opacity-80 p-2 shadow-8 border-round-lg align-content-center'
                     style={{
                         maxWidth: "70%",
-                        height: cards[currentCard].bigSize ? "240px" : "100px",
+                        height: cards[currentCard].bigSize ? "200px" : "80px",
+                        width: cards[currentCard].bigSize ? "200px" : "190px",
                         overflow: "auto"
                     }}
                 >
