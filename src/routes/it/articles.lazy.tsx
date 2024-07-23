@@ -27,7 +27,7 @@ export const Route = createLazyFileRoute('/it/articles')({
         const context = Route.useRouteContext()
         const lang = context.lang
         return <>
-            <h1 className='w-full' data-testid="title">{translate("Publications", lang)}</h1>
+            <h1 className='w-full pl-3' data-testid="title">{translate("Publications", lang)}</h1>
             <div className='flex flex-row flex-wrap flex-grow-1 overflow-y-visible bg-white min-w-0 min-h-0'>
                 <MediumArticle
                     url='https://medium.com/stackademic/telegram-bot-test-develop-and-host-on-aws-with-cdk-8a744a71cc0e?sk=5df9c6cd47135b8dbda30a3004019fe8'

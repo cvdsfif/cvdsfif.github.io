@@ -13,7 +13,7 @@ const RepositoryCard = ({ title, subtitle, repositories }: { title: string, subt
     const context = Route.useRouteContext()
     const lang = context.lang
 
-    return <Card
+    return <div className="col-12"><Card
         key={`repCard${Math.round(Math.random() * 1_000_000)}`}
         title={title}
         subTitle={subtitle}
@@ -30,7 +30,7 @@ const RepositoryCard = ({ title, subtitle, repositories }: { title: string, subt
         >{repository.url.split("/").pop()}</Button></div>
         <div>{translate(repository.about, lang)}</div>
     </div>
-    )}</Card>
+    )}</Card></div>
 }
 
 export const Route = createLazyFileRoute('/it/repositories')({
@@ -38,14 +38,14 @@ export const Route = createLazyFileRoute('/it/repositories')({
         const context = Route.useRouteContext()
         const lang = context.lang
         return <>
-            <h1 className='w-full' data-testid="title">{translate("Code repositories", lang)}</h1>
-            <div className='flex flex-column flex-wrap flex-grow-1 overflow-y-visible bg-white min-w-0 min-h-0 w-full'>
+            <h1 className='w-full pl-3' data-testid="title">{translate("Code repositories", lang)}</h1>
+            <div className='grid flex-grow-1 overflow-y-visible bg-white min-w-0 min-h-0 w-full'>
                 <RepositoryCard
                     title={translate("This site", lang)}
                     repositories={[
                         { id: 1, about: "repositories.thisSite.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
                     ]}
-                />
+                /><br />
                 <RepositoryCard
                     title={translate("Telegram bots examples", lang)}
                     subtitle={translate("repositories.tgbot.subtitle", lang)}

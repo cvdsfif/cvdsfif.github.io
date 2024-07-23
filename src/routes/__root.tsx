@@ -32,7 +32,6 @@ export const Route = createRootRoute({
             { value: "ru", label: "RU" },
         ]
         const [selectedLang, setSelectedLang] = useState(languages.find(l => lang?.startsWith(l.value))?.value ?? "")
-        console.log(context)
 
         if (!context) {
             console.warn("Invalidating due to empty context")
@@ -49,13 +48,6 @@ export const Route = createRootRoute({
                         data-testid="homeLink">
                         <span className="pi pi-home" />
                         <span className="mx-2">{translate("Home", lang)}</span>
-                    </Link>
-            },
-            {
-                template: () =>
-                    <Link to="/about" className="flex align-items-center p-menuitem-link">
-                        <span className="pi pi-info-circle" />
-                        <span className="mx-2">{translate("About", lang)}</span>
                     </Link>
             },
             {
@@ -77,7 +69,23 @@ export const Route = createRootRoute({
                             </Link>
                     }
                 ]
-            }
+            },
+            ...(selectedLang.startsWith("ru") ? [
+                {
+                    template: () =>
+                        <Link to="/senryu" className="flex align-items-center p-menuitem-link">
+                            <span className="pi pi-compass" />
+                            <span className="mx-2">Сэнрю</span>
+                        </Link>
+                }
+            ] : []),
+            {
+                template: () =>
+                    <Link to="/about" className="flex align-items-center p-menuitem-link">
+                        <span className="pi pi-info-circle" />
+                        <span className="mx-2">{translate("About", lang)}</span>
+                    </Link>
+            },
         ] as MenuItem[]
 
         const barStart = () => (<div>

@@ -13,11 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SenryuImport } from './routes/senryu'
 
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const SenryuIdLazyImport = createFileRoute('/senryu/$id')()
 const ItRepositoriesLazyImport = createFileRoute('/it/repositories')()
 const ItArticlesLazyImport = createFileRoute('/it/articles')()
 
@@ -28,10 +30,20 @@ const AboutLazyRoute = AboutLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
+const SenryuRoute = SenryuImport.update({
+  path: '/senryu',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const SenryuIdLazyRoute = SenryuIdLazyImport.update({
+  path: '/$id',
+  getParentRoute: () => SenryuRoute,
+} as any).lazy(() => import('./routes/senryu.$id.lazy').then((d) => d.Route))
 
 const ItRepositoriesLazyRoute = ItRepositoriesLazyImport.update({
   path: '/it/repositories',
@@ -56,6 +68,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/senryu': {
+      id: '/senryu'
+      path: '/senryu'
+      fullPath: '/senryu'
+      preLoaderRoute: typeof SenryuImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -77,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ItRepositoriesLazyImport
       parentRoute: typeof rootRoute
     }
+    '/senryu/$id': {
+      id: '/senryu/$id'
+      path: '/$id'
+      fullPath: '/senryu/$id'
+      preLoaderRoute: typeof SenryuIdLazyImport
+      parentRoute: typeof SenryuImport
+    }
   }
 }
 
@@ -84,6 +110,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  SenryuRoute: SenryuRoute.addChildren({ SenryuIdLazyRoute }),
   AboutLazyRoute,
   ItArticlesLazyRoute,
   ItRepositoriesLazyRoute,
@@ -98,6 +125,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/senryu",
         "/about",
         "/it/articles",
         "/it/repositories"
@@ -105,6 +133,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/senryu": {
+      "filePath": "senryu.tsx",
+      "children": [
+        "/senryu/$id"
+      ]
     },
     "/about": {
       "filePath": "about.lazy.tsx"
@@ -114,6 +148,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/it/repositories": {
       "filePath": "it/repositories.lazy.tsx"
+    },
+    "/senryu/$id": {
+      "filePath": "senryu.$id.lazy.tsx",
+      "parent": "/senryu"
     }
   }
 }
