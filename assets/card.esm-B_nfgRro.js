@@ -1,4 +1,4 @@
-import{C as S,r as t,u as J,P as X,a as H,O as l,c as M}from"./index-J0-lIQiI.js";var O={root:"p-card p-component",header:"p-card-header",title:"p-card-title",subTitle:"p-card-subtitle",content:"p-card-content",footer:"p-card-footer",body:"p-card-body"},U=`
+import{C as S,r as t,u as J,P as X,a as H,O as l,c as M}from"./index-8-E4Gkqd.js";var O={root:"p-card p-component",header:"p-card-header",title:"p-card-title",subTitle:"p-card-subtitle",content:"p-card-content",footer:"p-card-footer",body:"p-card-body"},U=`
 @layer primereact {
     .p-card-header img {
         width: 100%;
