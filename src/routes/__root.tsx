@@ -73,7 +73,10 @@ export const Route = createRootRoute({
             ...(selectedLang.startsWith("ru") ? [
                 {
                     template: () =>
-                        <Link to="/senryu" className="flex align-items-center p-menuitem-link">
+                        <Link
+                            data-testid="senryuLink"
+                            to="/senryu"
+                            className="flex align-items-center p-menuitem-link">
                             <span className="pi pi-compass" />
                             <span className="mx-2">Сэнрю</span>
                         </Link>

@@ -189,4 +189,22 @@ describe("Testing the root route", () => {
         // THEN the "Loading..." placeholder is loaded
         await waitFor(() => expect(getByTestId(container, "languageValue")).toHaveTextContent("en"))
     })
+
+    test("Should show the senryu link when Russian is selected", async () => {
+        // GIVEN the root route's main component
+        const Component = extractedComponent!.component
+
+        // AND the language is set to Russian
+        routeContextMock.mockReturnValue({ lang: "ru" })
+
+        // AND we render the main component
+        const { container } = render(<Component />)
+
+        // WHEN the menu is displayed
+        const menu = getByTestId(container, "menuButton")
+        await fireEvent.click(menu)
+
+        // THEN it renders without exceptions and we get the root element in it
+        await waitFor(() => expect(screen.getByTestId("senryuLink")).toBeDefined())
+    })
 })
