@@ -7,7 +7,7 @@ type Card = {
     bigSize?: boolean
 }
 
-const cards = [
+export const cards = [
     {
         content: <>
             Баюн (梅雨), принадлежащий к малоизвестной в России гильдии строительных философов, одной из продвинутых каст арбайтеров, приехав туда как по работе, так и просто из дружелюбного любопытства, вдруг обнаружил, что единственным жанром, способным адекватно выразить его офигение от странных обычаев этой страны, являются привычные ему семнадцатисложные сэнрю. Причем русский язык, как одно из двух его родных наречий, оказался весьма подходящим для выражения вышеупомянутых чувств в этой сжатой, но все же менее строгой по сравнению с хайку форме. Некоторые результаты этого синтеза мы вам и представляем на этой странице.
@@ -648,11 +648,13 @@ export const Route = createLazyFileRoute('/senryu/$id')({
 
         return <div className="flex flex-wrap flex-grow-1 align-items-center justify-content-center">
             <Button
+                data-testid="prevButton"
                 onClick={() => { goToCard(currentCard - 1) }}
                 disabled={currentCard == 0}
                 text>&lt;&lt;&lt;</Button>
             <div
                 className='flex bg-contain align-items-center justify-content-center'
+                data-testid="mainZone"
                 onClick={() => {
                     goToCard(currentCard === cards.length - 1 ? 0 : currentCard + 1)
                 }}
@@ -679,6 +681,7 @@ export const Route = createLazyFileRoute('/senryu/$id')({
                 </div>
             </div>
             <Button
+                data-testid="nextButton"
                 onClick={() => { goToCard(currentCard + 1) }}
                 disabled={currentCard == cards.length - 1}
                 text>&gt;&gt;&gt;</Button>

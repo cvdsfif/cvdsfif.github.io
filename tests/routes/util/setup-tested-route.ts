@@ -3,7 +3,10 @@ import { RouteComponent } from "@tanstack/react-router"
 export const setupTestedRoute = (route: string) => {
     const setupContainer = {
         extractedComponent: undefined as any,
-        routeContextMock: jest.fn()
+        routeContextMock: jest.fn(),
+        useParamsMock: jest.fn(),
+        navigateMock: jest.fn(),
+        importedModule: undefined as any,
     }
 
     beforeAll(async () => {
@@ -18,12 +21,14 @@ export const setupTestedRoute = (route: string) => {
                             setupContainer.extractedComponent = param
                             return ({
                                 useRouteContext: setupContainer.routeContextMock,
+                                useParams: setupContainer.useParamsMock,
                             })
                         }
                 ),
+                useNavigate: () => setupContainer.navigateMock,
             })
         )
-        await import(`../${route}`)
+        setupContainer.importedModule = await import(`../${route}`)
     })
 
     beforeEach(() => {
