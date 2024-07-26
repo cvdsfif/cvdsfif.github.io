@@ -507,7 +507,7 @@ export const cards = [
         content: <>
             ведь попробовал
             <br />и вепрево колено
-            <br />пяточкоедство
+            <br />пятачкоедство
         </>,
         picture: 'jap/pooh.jpeg'
     },
