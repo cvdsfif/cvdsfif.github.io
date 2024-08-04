@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, Link } from '@tanstack/react-router'
 import { Card } from 'primereact/card'
 import { translate } from '../util/translate'
 import { styled } from "styled-components";
@@ -15,7 +15,9 @@ export const Route = createLazyFileRoute('/')({
         const context = Route.useRouteContext()
         const lang = context.lang
 
-        const cardHeader = () => <img src="/nztransp2407.png" alt="NZ" style={{ maxWidth: "70vh", maxHeight: "50vh" }} />
+        const cardHeader = () => <Link to="/about">
+            <img src="/nztransp2407.png" alt="NZ" style={{ maxWidth: "70vh", maxHeight: "50vh" }} />
+        </Link>
         return <div className="flex flex-grow-1 align-items-center justify-content-center overflow-y-scroll">
             <Wrapper>
                 <Card title={translate("Nikit Zykov", lang)} header={cardHeader} data-testid="nameDisplay">
