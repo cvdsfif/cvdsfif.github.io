@@ -22,6 +22,7 @@ describe("Testing the home page", () => {
                             })
                         }
                 ),
+                Link: () => <></>
             })
         )
 
