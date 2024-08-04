@@ -8,38 +8,45 @@ import "primereact/resources/themes/bootstrap4-light-blue/theme.css"
 import 'primeicons/primeicons.css'
 import "primeflex/primeflex.css"
 import { MenuItem } from 'primereact/menuitem'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
+import { loadStoredData, useIndexedDbState } from "use-indexed-db-state";
+
+const languages = [
+    { value: "en", label: "EN" },
+    { value: "fr", label: "FR" },
+    { value: "ru", label: "RU" },
+]
+
+export const LANGUAGE_SELECTED_KEY = "languageSelected"
+
+const browserOrDefaultLanguage = () => languages.find(language => window.navigator.language?.startsWith(language.value))?.value ?? "en"
 
 export const Route = createRootRoute({
-    beforeLoad: () => {
-        const defaultLang =
-            localStorage.getItem("userLanguage") ||
-            window.navigator.language ||
-            "en"
-
-        return { lang: defaultLang }
+    beforeLoad: async () => {
+        return {
+            lang: await loadStoredData(LANGUAGE_SELECTED_KEY) ?? browserOrDefaultLanguage()
+        }
     },
     component: () => {
         const router = useRouter()
         const context = Route.useRouteContext()
         const menu = useRef(null as TieredMenu | null)
 
-        const lang = context?.lang
-
-        const languages = [
-            { value: "en", label: "EN" },
-            { value: "fr", label: "FR" },
-            { value: "ru", label: "RU" },
-        ]
-        const [selectedLang, setSelectedLang] = useState(languages.find(l => lang?.startsWith(l.value))?.value ?? "")
+        const [lang, setLang, langLoaded] = useIndexedDbState(
+            LANGUAGE_SELECTED_KEY,
+            browserOrDefaultLanguage(),
+            {
+                storedCallback() {
+                    router.invalidate()
+                }
+            }
+        )
 
         if (!context) {
             console.warn("Invalidating due to empty context")
             setTimeout(() => router.invalidate(), 100)
             return <div data-testid="loadingPlaceholder">Loading...</div>
         }
-
-        if (selectedLang === "" && lang) setSelectedLang(lang)
 
         const menuItems = [
             {
@@ -70,7 +77,7 @@ export const Route = createRootRoute({
                     }
                 ]
             },
-            ...(selectedLang.startsWith("ru") ? [
+            ...(lang === "ru" ? [
                 {
                     template: () =>
                         <Link
@@ -99,18 +106,17 @@ export const Route = createRootRoute({
                 className="m-0 hover:text-blue bg-grey-100 text-black"
                 icon="pi pi-align-justify"
                 onClick={e => menu.current!.toggle(e)} />
-            <span data-testid="languageValue" style={{ display: "none" }}>{selectedLang}</span>
+            <span data-testid="languageValue" style={{ display: "none" }}>{lang}</span>
         </div>)
 
         const barEnd = () => (<Dropdown
             data-testid="languageSelector"
-            value={selectedLang}
+            value={lang}
             options={languages}
             optionLabel="label"
+            disabled={!langLoaded}
             onChange={e => {
-                setSelectedLang(e.value)
-                localStorage.setItem("userLanguage", e.value)
-                router.invalidate()
+                setLang(e.value)
             }}
         />)
 
