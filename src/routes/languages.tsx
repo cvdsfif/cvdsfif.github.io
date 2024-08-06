@@ -15,7 +15,10 @@ export const Route = createFileRoute('/languages')({
                     method: "GET",
                     mode: "no-cors"
                 })
-                .then(data => data.json())
+                .then(data => {
+                    console.log(data)
+                    return data.json()
+                })
                 .then(data => data)
             return {
                 username: loading.users[0].username,
