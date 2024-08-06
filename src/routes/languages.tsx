@@ -10,20 +10,13 @@ const isErrorMessage = (data: ErrorMessage | unknown): data is ErrorMessage => (
 export const Route = createFileRoute('/languages')({
     loader: async () => {
         try {
-            const loading = await fetch("https://www.duolingo.com/2017-06-30/users?username=6JvX6",
-                {
-                    method: "GET",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json,text/*",
-                    },
-                })
+            const source = await fetch(
+                `https://telegraf-api.yazino.com/telegraf/proxy`, { method: "POST" })
                 .then(data => {
-                    console.log(data)
                     return data.json()
                 })
                 .then(data => data)
+            const loading = JSON.parse(JSON.parse(source.data))
             return {
                 username: loading.users[0].username,
                 streak: loading.users[0].streak,
