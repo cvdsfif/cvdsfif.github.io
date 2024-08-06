@@ -13,7 +13,11 @@ export const Route = createFileRoute('/languages')({
             const loading = await fetch("https://www.duolingo.com/2017-06-30/users?username=6JvX6",
                 {
                     method: "GET",
-                    mode: "cors"
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json,text/*",
+                    },
                 })
                 .then(data => {
                     console.log(data)
