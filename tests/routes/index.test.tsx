@@ -36,7 +36,7 @@ describe("Testing the home page", () => {
     })
 
     test("Should load the translated page", () => {
-        // GIVEN French selected as language
+        // GIVEN Russian selected as language
         routeContextMock.mockReturnValue({ lang: "ru" })
         const Component = extractedComponent!.component
 

@@ -27,6 +27,53 @@ const tableEn: { [key: string]: string } = {
     "repositories.tgbot.subtitle": "Two versions of the Hello World bot deployed on AWS CDK",
     "repositories.tgbot.plain": "Bot implemented as a plain CDK stack",
     "repositories.tgbot.lib": "Bot implemented using the cdk-typescript-lib library",
+    "lang.ZH-CN": "Chinese",
+    "lang.UK": "Ukrainian",
+    "lang.ES": "Spanish",
+    "lang.AR": "Arabic",
+    "lang.DE": "German",
+    "lang.PT": "Portuguese",
+    "lang.HU": "Hungarian",
+    "lang.IT": "Italian",
+    "lang.PL": "Polish",
+    "lang.FI": "Finnish",
+    "lang.YI": "Yiddish",
+    "lang.JA": "Japanese",
+    "lang.TR": "Turkish",
+    "lang.NL-NL": "Dutch",
+    "lang.SV": "Swedish",
+    "lang.ID": "Indonesian",
+    "lang.HE": "Hebrew",
+    "lang.HT": "Haitian creole",
+    "lang.EO": "Esperanto",
+    "lang.CY": "Welsh",
+    "lang.CA": "Catalan",
+    "lang.LA": "Latin",
+    "lang.NO-BO": "Norwegian bokmål",
+    "lang.EL": "Greek",
+    "lang.HI": "Hindi",
+    "lang.EN": "English",
+    "lang.DA": "Danish",
+    "lang.SW": "Swahili",
+    "lang.RO": "Romanian",
+    "lang.GA": "Irish",
+    "lang.NV": "Navajo",
+    "lang.CS": "Czech",
+    "lang.VI": "Vietnamese",
+    "codepage": "en-GB",
+    "Languages p1":
+        "Learning languages means being home everywhere. And it's an excellent brain training.",
+    "Languages p2":
+        `French, English and Russian are my everyday working tools. The big advantage in Europe is that
+        all the languages are pretty similar. Except some exotic stuff like Hungarian, Finnish or Georgian.
+        Hungarian by the way, I have a chance to have a good idea of it. And well operational in Spanish,
+        Portugese, Ukrainian, German and Italian. All that needs maintenance. I use Duolingo to keep
+        my languages in a working state. `,
+    "Languages p3":
+        `If you, unlike few millions of people, don't know what it is, my advice
+        is to have a look. For those who already know, here are few notes on where I am in that universe.
+        All the numbers are in real time.`,
+    "duolingo.error": "Error loading data from Duolingo"
 }
 
 const tableFr: { [key: string]: string } = {
@@ -68,6 +115,58 @@ const tableFr: { [key: string]: string } = {
     "repositories.tgbot.subtitle": "Deux versions du bot Hello World bot deployé sur AWS CDK",
     "repositories.tgbot.plain": "Bot implémenté comme un stack simple CDK",
     "repositories.tgbot.lib": "Bot implémenté avec la bibliothèque cdk-typescript-lib",
+    "lang.ZH-CN": "Chinois",
+    "lang.UK": "Ukrainien",
+    "lang.ES": "Espagnol",
+    "lang.AR": "Arabe",
+    "lang.DE": "Allemand",
+    "lang.PT": "Portugais",
+    "lang.HU": "Hongrois",
+    "lang.IT": "Italien",
+    "lang.PL": "Polonais",
+    "lang.FI": "Finnois",
+    "lang.YI": "Yiddish",
+    "lang.JA": "Japonais",
+    "lang.TR": "Turque",
+    "lang.NL-NL": "Néerlandais",
+    "lang.SV": "Suédois",
+    "lang.ID": "Indonesien",
+    "lang.HE": "Hebreu",
+    "lang.HT": "Créole haïtien",
+    "lang.EO": "Esperanto",
+    "lang.CY": "Gallois",
+    "lang.CA": "Catalan",
+    "lang.LA": "Latin",
+    "lang.NO-BO": "Norvégien bokmål",
+    "lang.EL": "Grecque",
+    "lang.HI": "Hindi",
+    "lang.EN": "Anglais",
+    "lang.DA": "Dannois",
+    "lang.SW": "Swahili",
+    "lang.RO": "Roumain",
+    "lang.GA": "Irlandais",
+    "lang.NV": "Navajo",
+    "lang.CS": "Tchèque",
+    "lang.VI": "Vietnamien",
+    "User ID": "Identifiant",
+    "Day streak": "Jours d'affilée",
+    "Total XP": "XP gagnés",
+    "Joined Duolingo on": "Rejoint Duolingo le",
+    "codepage": "fr-FR",
+    "Languages": "Langues",
+    "Languages p1":
+        "Apprendre des langues ça signifie être chez soi partout. Et c'est un excellent entraînement pour le cerveau.",
+    "Languages p2":
+        `Le français, l'anglais et le russe sont mes outils de travail quotidiens. Le grand avantage de l'Europe est que
+        toutes les langues sont assez similaires. Sauf de l'exotique comme le hongrois, le finnois ou le géorgien.
+        Le hongrois d'ailleurs, j'en ai une bonne idée. Et bien opérationnel en espagnol, en portugais, en ukrainien,
+        en allemand et en italien. Mais tout ça nécessite de la maintenance. J'utilise Duolingo pour maintenir ma connaissance
+        des langues dans un état exploitable.`,
+    "Languages p3":
+        `Si vous, contrairement à des millions des personnes, ne savez pas ce que c'est, mon conseil est d'y jeter un coup d'oeil.
+        Pour ceux qui connaissent, voyez sur cette page quelques notes montrant où je suis dans cet univers.
+        Tous les nombres sont en temps réel.`,
+    "duolingo.error": "Erreur du chargement des données Duolingo"
 }
 
 const tableRu: { [key: string]: string } = {
@@ -110,6 +209,58 @@ const tableRu: { [key: string]: string } = {
     "repositories.tgbot.subtitle": "Две версии Hello World-бота, разворачиваемые на AWS CDK",
     "repositories.tgbot.plain": "Бот, реализованный как простой стек CDK",
     "repositories.tgbot.lib": "Бот, реализованный через библиотеку cdk-typescript-lib",
+    "lang.ZH-CN": "Китайский",
+    "lang.UK": "Украинский",
+    "lang.ES": "Испанский",
+    "lang.AR": "Арабский",
+    "lang.DE": "Немецкий",
+    "lang.PT": "Португальский",
+    "lang.HU": "Венгерский",
+    "lang.IT": "Итальянский",
+    "lang.PL": "Польский",
+    "lang.FI": "Финский",
+    "lang.YI": "Идиш",
+    "lang.JA": "Японский",
+    "lang.TR": "Турецкий",
+    "lang.NL-NL": "Нидерландский",
+    "lang.SV": "Шведский",
+    "lang.ID": "Индонезийский",
+    "lang.HE": "Иврит",
+    "lang.HT": "Гаитянский креольский",
+    "lang.EO": "Эсперанто",
+    "lang.CY": "Валлийский",
+    "lang.CA": "Каталанский",
+    "lang.LA": "Латинский",
+    "lang.NO-BO": "Норвежский букмол",
+    "lang.EL": "Греческий",
+    "lang.HI": "Хинди",
+    "lang.EN": "Английский",
+    "lang.DA": "Датский",
+    "lang.SW": "Суахили",
+    "lang.RO": "Румынский",
+    "lang.GA": "Ирландский",
+    "lang.NV": "Навахо",
+    "lang.CS": "Чешский",
+    "lang.VI": "Вьетнамский",
+    "User ID": "Идентификатор",
+    "Day streak": "Дней подряд",
+    "Total XP": "Очков опыта",
+    "Joined Duolingo on": "На Дуолинго с",
+    "codepage": "ru-RU",
+    "Languages": "Языки",
+    "Languages p1":
+        "Учить языки - значит быть дома в любой стране. И это прекрасная тренировка для мозга.",
+    "Languages p2":
+        `Французский, английский и русский - мои повседневные рабочие инструменты. Большое преимущество Европы
+        в том, что все языки здесь более-менее похожи. Кроме всякой экзотики типа венгерского, финского или грузинского.
+        Хотя в венгерском я в целом неплохо разбираюсь, тут мне повезло. На достаточно приличном уровне испанский,
+        португальский, украинский, немецкий и итальянский. Но всё это требует практики. Для ежедневного поддержания языков
+        в рабочем состоянии я использую Дуолинго.`,
+    "Languages p3":
+        `Если вы, в отличие от нескольких миллионов пользователей, не знаете, что это такое, мой совет - взгляните.
+        Для тех, кто уже в курсе, далее на этой странице вы увидите, где я нахожусь в этой маленькой вселенной.
+        Все цифры - в реальном времени.`,
+    "duolingo.error": "Ошибка загрузки данных Duolingo",
 }
 
 const languages = [

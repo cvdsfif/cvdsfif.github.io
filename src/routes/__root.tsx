@@ -24,7 +24,7 @@ const browserOrDefaultLanguage = () => languages.find(language => window.navigat
 export const Route = createRootRoute({
     beforeLoad: async () => {
         return {
-            lang: await loadStoredData(LANGUAGE_SELECTED_KEY) ?? browserOrDefaultLanguage()
+            lang: await loadStoredData(LANGUAGE_SELECTED_KEY) as string | undefined ?? browserOrDefaultLanguage()
         }
     },
     component: () => {
@@ -76,6 +76,15 @@ export const Route = createRootRoute({
                             </Link>
                     }
                 ]
+            },
+            {
+                template: () =>
+                    <Link
+                        to="/languages"
+                        className="flex align-items-center p-menuitem-link">
+                        <span className="pi pi-language" />
+                        <span className="mx-2">{translate("Languages", lang)}</span>
+                    </Link>
             },
             ...(lang === "ru" ? [
                 {

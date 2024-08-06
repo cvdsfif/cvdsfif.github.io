@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SenryuImport } from './routes/senryu'
+import { Route as LanguagesImport } from './routes/languages'
 
 // Create Virtual Routes
 
@@ -32,6 +33,11 @@ const AboutLazyRoute = AboutLazyImport.update({
 
 const SenryuRoute = SenryuImport.update({
   path: '/senryu',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LanguagesRoute = LanguagesImport.update({
+  path: '/languages',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -66,6 +72,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/languages': {
+      id: '/languages'
+      path: '/languages'
+      fullPath: '/languages'
+      preLoaderRoute: typeof LanguagesImport
       parentRoute: typeof rootRoute
     }
     '/senryu': {
@@ -110,6 +123,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  LanguagesRoute,
   SenryuRoute: SenryuRoute.addChildren({ SenryuIdLazyRoute }),
   AboutLazyRoute,
   ItArticlesLazyRoute,
@@ -125,6 +139,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/languages",
         "/senryu",
         "/about",
         "/it/articles",
@@ -133,6 +148,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/languages": {
+      "filePath": "languages.tsx"
     },
     "/senryu": {
       "filePath": "senryu.tsx",
