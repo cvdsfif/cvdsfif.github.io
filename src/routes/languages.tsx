@@ -10,7 +10,11 @@ const isErrorMessage = (data: ErrorMessage | unknown): data is ErrorMessage => (
 export const Route = createFileRoute('/languages')({
     loader: async () => {
         try {
-            const loading = await fetch("https://www.duolingo.com/2017-06-30/users?username=6JvX6", { method: "GET" })
+            const loading = await fetch("https://www.duolingo.com/2017-06-30/users?username=6JvX6",
+                {
+                    method: "GET",
+                    mode: "no-cors"
+                })
                 .then(data => data.json())
                 .then(data => data)
             return {
