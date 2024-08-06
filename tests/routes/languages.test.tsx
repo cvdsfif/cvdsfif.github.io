@@ -72,6 +72,11 @@ describe("Testing the languages presentation page", () => {
         ) as any
     })
 
+    afterEach(() => {
+        fetchData = {}
+        fetchError = undefined
+    })
+
     test("Should load the page", async () => {
         // GIVEN Russian is selected as a language
         routeContextMock.mockReturnValue({ lang: "ru" })
