@@ -3,6 +3,7 @@ import { Card } from 'primereact/card'
 import { translate } from '../util/translate'
 import { styled } from "styled-components";
 import { Button } from 'primereact/button';
+import pj from "../../package.json"
 
 const Wrapper = styled.div`
             .p-card-title {
@@ -16,7 +17,11 @@ export const Route = createLazyFileRoute('/')({
         const lang = context.lang
 
         const cardHeader = () => <Link to="/about">
-            <img src="/nztransp2407.png" alt="NZ" style={{ maxWidth: "70vh", maxHeight: "50vh" }} />
+            <img
+                src="/nztransp2407.png"
+                alt="NZ"
+                title={`Copyright © 2024, Nikit Zykov, version ${pj.version}`}
+                style={{ maxWidth: "70vh", maxHeight: "50vh" }} />
         </Link>
         return <div className="flex flex-grow-1 align-items-center justify-content-center overflow-y-scroll">
             <Wrapper>
