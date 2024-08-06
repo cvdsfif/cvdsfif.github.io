@@ -67,7 +67,7 @@ describe("Testing the languages presentation page", () => {
             Promise.resolve({
                 json: () => fetchError ?
                     Promise.reject(new Error(fetchError)) :
-                    Promise.resolve({ users: [fetchData] })
+                    Promise.resolve({ data: JSON.stringify(JSON.stringify({ users: [fetchData] })) })
             })
         ) as any
     })
