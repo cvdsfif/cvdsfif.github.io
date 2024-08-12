@@ -43,7 +43,13 @@ export const Route = createLazyFileRoute('/it/repositories')({
                 <RepositoryCard
                     title={translate("This site", lang)}
                     repositories={[
-                        { id: 1, about: "repositories.thisSite.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
+                        { about: "repositories.thisSite.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
+                    ]}
+                /><br />
+                <RepositoryCard
+                    title={translate("IndexedDB state hook", lang)}
+                    repositories={[
+                        { id: 1, about: "repositories.idbhook.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
                     ]}
                 /><br />
                 <RepositoryCard
@@ -53,7 +59,7 @@ export const Route = createLazyFileRoute('/it/repositories')({
                         { about: "repositories.tgbot.plain", url: "https://github.com/cvdsfif/tg-cdk-plain" },
                         { about: "repositories.tgbot.lib", url: "https://github.com/cvdsfif/tg-cdk-lib" },
                     ]}
-                />
+                /><br />
                 <RepositoryCard
                     title={translate("Typizator", lang)}
                     subtitle={translate("repositories.typizator.subtitle", lang)}

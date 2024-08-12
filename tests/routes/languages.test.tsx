@@ -1,6 +1,7 @@
 import { RouteComponent } from "@tanstack/react-router"
-import { render } from "@testing-library/react"
+import { render, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
+import { act, useEffect, useState } from "react"
 
 describe("Testing the languages presentation page", () => {
     let extractedComponent: any
@@ -22,7 +23,19 @@ describe("Testing the languages presentation page", () => {
                             })
                         }
                 ),
-                Link: () => <></>
+                Link: () => <></>,
+                Await: ({ children, promise }: { children: any, promise: Promise<any> }) => {
+                    const [childComponent, setChildComponents] = useState(<>...</>)
+
+                    const load = async () => {
+                        const data = await promise.then(data => data)
+                        setChildComponents(children(data))
+                    }
+
+                    useEffect(() => { load() }, [])
+                    return <>{childComponent}</>
+                },
+                defer: (p: Promise<any>) => p
             })
         )
 
@@ -53,6 +66,10 @@ describe("Testing the languages presentation page", () => {
         ]
     }
 
+    const basicLoaderPromise = {
+        deferred: Promise.resolve(basicLoaderObject)
+    }
+
     let fetchData = {}
     let fetchError: string | undefined = undefined
 
@@ -61,7 +78,7 @@ describe("Testing the languages presentation page", () => {
         routeContextMock.mockReturnValue({ lang: "" })
         jest.spyOn(window, "open").mockImplementation(windowOpenSpy)
 
-        loaderDataMock.mockReturnValue(basicLoaderObject)
+        loaderDataMock.mockReturnValue(basicLoaderPromise)
 
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -83,13 +100,15 @@ describe("Testing the languages presentation page", () => {
         const Component = extractedComponent!.component
 
         // WHEN we render the component
-        const { getByTestId } = render(<Component />)
+        const { getByTestId } = await act(() => render(<Component />))
 
         // THEN we have the language display shown in bold for cyrillic
         expect(getByTestId("lang-0")).toHaveClass("font-bold")
 
+        //await new Promise(res => process.nextTick(res))
+
         // AND the target language is Chinese
-        expect(getByTestId("lang-0")).toHaveTextContent("Китайский")
+        await waitFor(() => expect(getByTestId("lang-0")).toHaveTextContent("Китайский"))
 
         // AND the source language is Chinese
         expect(getByTestId("source-lang-0")).toHaveTextContent("(en)")
@@ -101,7 +120,7 @@ describe("Testing the languages presentation page", () => {
         const Component = extractedComponent!.component
 
         // WHEN we render the component
-        const { getByTestId } = render(<Component />)
+        const { getByTestId } = await act(() => render(<Component />))
 
         // THEN we don't have the language display shown in bold for cyrillic
         expect(getByTestId("lang-0")).not.toHaveClass("font-bold")
@@ -112,7 +131,10 @@ describe("Testing the languages presentation page", () => {
         fetchData = basicLoaderObject
 
         // WHEN launching the loader
-        const loaded = await extractedComponent!.loader()
+        const loaderObj = await extractedComponent!.loader()
+
+        // THEN in the loaded data, the source courses are sorted
+        const loaded = await loaderObj.deferred.then((d: any) => d)
 
         // THEN in the loaded data, the source courses are sorted
         expect(loaded.courses[0].id).toEqual("DUOLINGO_ES_EN")
@@ -123,7 +145,10 @@ describe("Testing the languages presentation page", () => {
         fetchError = "Mistake"
 
         // WHEN launching the loader
-        const loaded = await extractedComponent!.loader()
+        const loaderObj = await extractedComponent!.loader()
+
+        // THEN in the loaded data, the source courses are sorted
+        const loaded = await loaderObj.deferred.then((d: any) => d)
 
         // THEN in the loaded data, the source courses are sorted
         expect(loaded.error).toBeDefined()
@@ -135,10 +160,10 @@ describe("Testing the languages presentation page", () => {
         const Component = extractedComponent!.component
 
         // AND the loader returns an error
-        loaderDataMock.mockReturnValue({ error: "Error" })
+        loaderDataMock.mockReturnValue({ deferred: Promise.resolve({ error: "Error" }) })
 
         // WHEN we render the component
-        const { getByTestId } = render(<Component />)
+        const { getByTestId } = await act(() => render(<Component />))
 
         // THEN we have the error information displayed when needed
         expect(getByTestId("duoError")).toHaveTextContent("Error loading data from Duolingo")

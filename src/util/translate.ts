@@ -73,7 +73,8 @@ const tableEn: { [key: string]: string } = {
         `If you, unlike few millions of people, don't know what it is, my advice
         is to have a look. For those who already know, here are few notes on where I am in that universe.
         All the numbers are in real time.`,
-    "duolingo.error": "Error loading data from Duolingo"
+    "duolingo.error": "Error loading data from Duolingo",
+    "repositories.idbhook.about": "React hook similar to useState that keeps the state locally in the indexedDB between sessions",
 }
 
 const tableFr: { [key: string]: string } = {
@@ -166,7 +167,8 @@ const tableFr: { [key: string]: string } = {
         `Si vous, contrairement à des millions des personnes, ne savez pas ce que c'est, mon conseil est d'y jeter un coup d'oeil.
         Pour ceux qui connaissent, voyez sur cette page quelques notes montrant où je suis dans cet univers.
         Tous les nombres sont en temps réel.`,
-    "duolingo.error": "Erreur du chargement des données Duolingo"
+    "duolingo.error": "Erreur du chargement des données Duolingo",
+    "repositories.idbhook.about": "Le hook React similaire à useState qui garde l'état entre sessions localement dans indexedDb",
 }
 
 const tableRu: { [key: string]: string } = {
@@ -261,6 +263,7 @@ const tableRu: { [key: string]: string } = {
         Для тех, кто уже в курсе, далее на этой странице вы увидите, где я нахожусь в этой маленькой вселенной.
         Все цифры - в реальном времени.`,
     "duolingo.error": "Ошибка загрузки данных Duolingo",
+    "repositories.idbhook.about": "Хук React аналогичный useState, сохраняющий состояние между сессиями в клиентской IndexedDb",
 }
 
 const languages = [
