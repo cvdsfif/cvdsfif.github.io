@@ -23,6 +23,7 @@ const IndexLazyImport = createFileRoute('/')()
 const SenryuIdLazyImport = createFileRoute('/senryu/$id')()
 const ItRepositoriesLazyImport = createFileRoute('/it/repositories')()
 const ItArticlesLazyImport = createFileRoute('/it/articles')()
+const ItTactTon1LazyImport = createFileRoute('/it/tact/ton1')()
 
 // Create/Update Routes
 
@@ -62,6 +63,11 @@ const ItArticlesLazyRoute = ItArticlesLazyImport.update({
   path: '/it/articles',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/it/articles.lazy').then((d) => d.Route))
+
+const ItTactTon1LazyRoute = ItTactTon1LazyImport.update({
+  path: '/it/tact/ton1',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/it/tact/ton1.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -116,6 +122,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SenryuIdLazyImport
       parentRoute: typeof SenryuImport
     }
+    '/it/tact/ton1': {
+      id: '/it/tact/ton1'
+      path: '/it/tact/ton1'
+      fullPath: '/it/tact/ton1'
+      preLoaderRoute: typeof ItTactTon1LazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -128,6 +141,7 @@ export const routeTree = rootRoute.addChildren({
   AboutLazyRoute,
   ItArticlesLazyRoute,
   ItRepositoriesLazyRoute,
+  ItTactTon1LazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -143,7 +157,8 @@ export const routeTree = rootRoute.addChildren({
         "/senryu",
         "/about",
         "/it/articles",
-        "/it/repositories"
+        "/it/repositories",
+        "/it/tact/ton1"
       ]
     },
     "/": {
@@ -170,6 +185,9 @@ export const routeTree = rootRoute.addChildren({
     "/senryu/$id": {
       "filePath": "senryu.$id.lazy.tsx",
       "parent": "/senryu"
+    },
+    "/it/tact/ton1": {
+      "filePath": "it/tact/ton1.lazy.tsx"
     }
   }
 }
