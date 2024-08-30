@@ -78,6 +78,7 @@ const tableEn: { [key: string]: string } = {
     "deposit-withdrawal": "Deposit / withdrawal TON contract",
     "owner-only": "Funds can only be withdrawn by the contract owner",
     "about-contract": "If you want to read more about this contract, refer to ",
+    "repositories.thisSite.tact-example": "Example of TON contract written in Tact used on this site",
 }
 
 const tableFr: { [key: string]: string } = {
@@ -183,7 +184,8 @@ const tableFr: { [key: string]: string } = {
     "owner-only": "Des fonds ne peuvent être retirés que par le propriétaire du contrat",
     "about-contract": "Pour savoir plus sur ce contrat, lisez ",
     "this article": "cet article",
-    "TON contract": "Contrat TON"
+    "TON contract": "Contrat TON",
+    "repositories.thisSite.tact-example": "Exemple du contrat TON utilisé sur ce site qui est écrit en langage Tact",
 }
 
 const tableRu: { [key: string]: string } = {
@@ -290,7 +292,8 @@ const tableRu: { [key: string]: string } = {
     "owner-only": "Средстав могут быть выведены только владельцем контракта",
     "about-contract": "Если хотите узнать больше о контракте, прочитайте ",
     "this article": "эту статью",
-    "TON contract": "Контракт TON"
+    "TON contract": "Контракт TON",
+    "repositories.thisSite.tact-example": "Пример TON-контракта, используемый на этом сайте, написанный на языке Tact",
 }
 
 const languages = [

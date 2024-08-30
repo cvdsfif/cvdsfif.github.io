@@ -44,6 +44,7 @@ export const Route = createLazyFileRoute('/it/repositories')({
                     title={translate("This site", lang)}
                     repositories={[
                         { about: "repositories.thisSite.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
+                        { about: "repositories.thisSite.tact-example", url: "https://github.com/cvdsfif/nzcom-tact" },
                     ]}
                 /><br />
                 <RepositoryCard
