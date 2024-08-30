@@ -74,7 +74,14 @@ export const Route = createRootRoute({
                                 <span className="pi pi-code" />
                                 <span className="mx-2">{translate("Code repositories", lang)}</span>
                             </Link>
-                    }
+                    },
+                    {
+                        template: () =>
+                            <Link to="/it/tact/ton1" className="flex align-items-center p-menuitem-link">
+                                <span className="pi pi-code" />
+                                <span className="mx-2">{translate("TON contract", lang)}</span>
+                            </Link>
+                    },
                 ]
             },
             {

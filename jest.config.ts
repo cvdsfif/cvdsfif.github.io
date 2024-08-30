@@ -17,6 +17,6 @@ export default {
   },
   verbose: true,
   collectCoverage: true,
-  collectCoverageFrom: ['!tests/*', '!**/dist/**/*', '!tests/**/*'],
+  collectCoverageFrom: ['!tests/*', '!**/dist/**/*', '!tests/**/*', '!src/contracts/**/*'],
   coverageReporters: ['json-summary', 'text'],
 }

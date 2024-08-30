@@ -1,7 +1,7 @@
 {
   "name": "nzcom-client",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,11 @@
     "test": "jest $npm_config_dir"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.3.3",
     "@tanstack/react-router": "^1.43.12",
+    "@ton/core": "^0.57.0",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^15.0.0",
     "@tonconnect/ui-react": "^2.0.9",
     "luxon": "^3.5.0",
     "primeflex": "^3.3.1",
@@ -19,7 +23,8 @@
     "primereact": "^10.6.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "use-indexed-db-state": "^1.0.1"
+    "use-indexed-db-state": "^1.0.1",
+    "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
     "@happy-dom/jest-environment": "^14.12.3",
@@ -27,6 +32,7 @@
     "@tanstack/router-plugin": "^1.43.12",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
+    "@ton/test-utils": "^0.4.2",
     "@types/jest": "^29.5.12",
     "@types/luxon": "^3.4.2",
     "@types/react": "^18.3.3",

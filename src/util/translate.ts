@@ -75,6 +75,9 @@ const tableEn: { [key: string]: string } = {
         All the numbers are in real time.`,
     "duolingo.error": "Error loading data from Duolingo",
     "repositories.idbhook.about": "React hook similar to useState that keeps the state locally in the indexedDB between sessions",
+    "deposit-withdrawal": "Deposit / withdrawal TON contract",
+    "owner-only": "Funds can only be withdrawn by the contract owner",
+    "about-contract": "If you want to read more about this contract, refer to ",
 }
 
 const tableFr: { [key: string]: string } = {
@@ -169,6 +172,18 @@ const tableFr: { [key: string]: string } = {
         Tous les nombres sont en temps réel.`,
     "duolingo.error": "Erreur du chargement des données Duolingo",
     "repositories.idbhook.about": "Le hook React similaire à useState qui garde l'état entre sessions localement dans indexedDb",
+    "deposit-withdrawal": "Contrat TON dépôt/retrait",
+    "Loading...": "Chargement...",
+    "Network:": "Réseau :",
+    "Current amount:": "Montant actuel :",
+    "Deposit TON:": "Déposer du TON :",
+    "Withdraw TON:": "Retirer du TON :",
+    "Send": "Envoyer",
+    "Contract address:": "Adresse du contrat :",
+    "owner-only": "Des fonds ne peuvent être retirés que par le propriétaire du contrat",
+    "about-contract": "Pour savoir plus sur ce contrat, lisez ",
+    "this article": "cet article",
+    "TON contract": "Contrat TON"
 }
 
 const tableRu: { [key: string]: string } = {
@@ -264,6 +279,18 @@ const tableRu: { [key: string]: string } = {
         Все цифры - в реальном времени.`,
     "duolingo.error": "Ошибка загрузки данных Duolingo",
     "repositories.idbhook.about": "Хук React аналогичный useState, сохраняющий состояние между сессиями в клиентской IndexedDb",
+    "deposit-withdrawal": "Контракт ввода/вывода средств TON",
+    "Loading...": "Загрузка...",
+    "Network:": "Сеть:",
+    "Current amount:": "Текущая сумма:",
+    "Contract address:": "Адрес контракта:",
+    "Deposit TON:": "Внести TON :",
+    "Withdraw TON:": "Вывести TON :",
+    "Send": "Отправить",
+    "owner-only": "Средстав могут быть выведены только владельцем контракта",
+    "about-contract": "Если хотите узнать больше о контракте, прочитайте ",
+    "this article": "эту статью",
+    "TON contract": "Контракт TON"
 }
 
 const languages = [
