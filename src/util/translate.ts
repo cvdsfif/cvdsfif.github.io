@@ -79,6 +79,7 @@ const tableEn: { [key: string]: string } = {
     "owner-only": "Funds can only be withdrawn by the contract owner",
     "about-contract": "If you want to read more about this contract, refer to ",
     "repositories.thisSite.tact-example": "Example of TON contract written in Tact used on this site",
+    "repositories.usetonconnect.about": "Helper hooks for TON contracts to make a bridge between TonConnect and contract wrappers"
 }
 
 const tableFr: { [key: string]: string } = {
@@ -186,6 +187,7 @@ const tableFr: { [key: string]: string } = {
     "this article": "cet article",
     "TON contract": "Contrat TON",
     "repositories.thisSite.tact-example": "Exemple du contrat TON utilisé sur ce site qui est écrit en langage Tact",
+    "repositories.usetonconnect.about": "Hooks de connection pour les contrats TON faisant le pont entre TonConnect et les adapteurs des contrats"
 }
 
 const tableRu: { [key: string]: string } = {
@@ -294,6 +296,7 @@ const tableRu: { [key: string]: string } = {
     "this article": "эту статью",
     "TON contract": "Контракт TON",
     "repositories.thisSite.tact-example": "Пример TON-контракта, используемый на этом сайте, написанный на языке Tact",
+    "repositories.usetonconnect.about": "Вспомогательные хуки для контрактов TON, адаптирующие TonConnect к адаптерам-обёрткам контрактов"
 }
 
 const languages = [

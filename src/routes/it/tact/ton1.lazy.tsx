@@ -1,22 +1,20 @@
 import { NzComTact } from '../../../contracts/tact_NzComTact'
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { Locales, TonConnectButton, TonConnectUIProvider } from '@tonconnect/ui-react'
+import { TonConnectButton, TonConnectUIProvider } from '@tonconnect/ui-react'
 import { useEffect, useRef, useState } from 'react'
 import { translate } from '../../../util/translate'
 import { InputNumber } from 'primereact/inputnumber'
 import { Button } from 'primereact/button'
-import { useTonContract } from '../../../hooks/useTonContract'
 import { toNano } from '@ton/core'
-import { useTonConnectSender } from '../../../hooks/useTonConnectSender'
 import { RadioButton } from "primereact/radiobutton"
+import { useTonConnectSender, useTonContract } from 'use-ton-connect-sender'
 
 export const AMOUNT_FOR_GAS = toNano("0.02")
+export const CONTRACT_TESTNET_ADDRESS = "EQA9dUWjN-Q_rPJv1e2SVs1WCYue0Llz9VYgty3ih14wRPF5"
+export const CONTRACT_MAINNET_ADDRESS = "EQB6M4YDpEO2t_E2jvKdgHq2ktLzNo5i57Khs7iVr-HrkrKH"
 const manifestUrl = "https://www.zykov.com/manifest.json"
 
 const ConnectedComponent = () => {
-    const CONTRACT_TESTNET_ADDRESS = "EQA9dUWjN-Q_rPJv1e2SVs1WCYue0Llz9VYgty3ih14wRPF5"
-    // const CONTRACT_MAINNET_ADDRESS = "EQA5W-Q0JwLNw-He4qi2W89p7fMFrXfyueEpfBeLiT-f1l3V"
-    const CONTRACT_MAINNET_ADDRESS = "EQB6M4YDpEO2t_E2jvKdgHq2ktLzNo5i57Khs7iVr-HrkrKH"
     const [contractAddress, setContractAddress] = useState(CONTRACT_MAINNET_ADDRESS)
     const [contractAmount, setContractAmount] = useState<bigint | undefined>(undefined)
     const [depositAmount, setDepositAmount] = useState<number | null | undefined>(0)
@@ -46,6 +44,7 @@ const ConnectedComponent = () => {
 
     const { sender, setOptions } = useTonConnectSender()
     setOptions({ language: lang === "ru" ? "ru" : "en" })
+
     const sendDeposit = async () => {
         try {
             await mainContract?.send(
@@ -66,7 +65,7 @@ const ConnectedComponent = () => {
     const readOwner = async () => {
         try {
             const contractOwner = await mainContract?.getOwner()
-            setOwnerConnected(!!sender && sender?.address.toString() === contractOwner?.toString())
+            setOwnerConnected(!!sender?.address && sender?.address?.toString() === contractOwner?.toString())
         } catch (e) {
             console.error("Error reading owner", e)
             setOwnerConnected(false)

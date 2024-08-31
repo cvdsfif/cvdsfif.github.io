@@ -1,7 +1,7 @@
 {
   "name": "nzcom-client",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -24,6 +24,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "use-indexed-db-state": "^1.0.1",
+    "use-ton-connect-sender": "^1.0.1",
     "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {

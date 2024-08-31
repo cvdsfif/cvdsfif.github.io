@@ -30,12 +30,12 @@ export const Route = createLazyFileRoute('/it/articles')({
             <h1 className='w-full pl-3' data-testid="title">{translate("Publications", lang)}</h1>
             <div className='flex flex-row flex-wrap flex-grow-1 overflow-y-visible bg-white min-w-0 min-h-0'>
                 <MediumArticle
-                    url='https://blog.stackademic.com/ton-contracts-made-easier-an-example-in-tact-language-5a4dd812ecfd'
+                    url='https://blog.stackademic.com/ton-contracts-made-easier-an-example-in-tact-language-5a4dd812ecfd?sk=51a74ca49c99b0126fd8ae7ed4d37dd5'
                     img='https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8wdsMJIo_uDtAG4cTTUpGA.jpeg'
                     title='TON contracts made easier: an example in Tact language'
                 />
                 <MediumArticle
-                    url='https://medium.com/stackademic/use-useindexeddb-instead-of-using-the-localstorage-3c867a2d1d45'
+                    url='https://medium.com/stackademic/use-useindexeddb-instead-of-using-the-localstorage-3c867a2d1d45?sk=a7745615fd71fefbce97c45c22fbac61'
                     img='https://miro.medium.com/v2/resize:fit:1400/format:webp/1*F8fkHp_ustg3T0lH1IV6GA.jpeg'
                     title='Use useIndexedDb instead of using the localStorage'
                 />

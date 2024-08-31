@@ -45,7 +45,7 @@ export const Route = createRootRoute({
         if (!context) {
             console.warn("Invalidating due to empty context")
             setTimeout(() => router.invalidate(), 100)
-            return <div data-testid="loadingPlaceholder">Loading...</div>
+            return <div data-testid="loadingPlaceholder">{translate("Loading...", lang)}</div>
         }
 
         const menuItems = [
