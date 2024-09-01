@@ -41,7 +41,7 @@ const ConnectedComponent = () => {
         const contractAmount = await contract.getBalance()
         setContractAmount(contractAmount)
 
-        console.log("Shursh key v", import.meta.env.VITE_SHURSH)
+        console.log("Shursh key v", import.meta?.env?.VITE_SHURSH)
     }
 
     const { sender, setOptions } = useTonConnectSender()

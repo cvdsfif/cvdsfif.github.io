@@ -388,5 +388,4 @@ describe("Testing simple deposit/withdrawal contract", () => {
         // THEN the call passes without errors and the deposit input value is set back to zero
         expect(withdrawInput).toHaveAttribute("value", "0")
     })
-
 })
