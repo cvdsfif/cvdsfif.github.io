@@ -40,6 +40,8 @@ const ConnectedComponent = () => {
         if (!contract) return
         const contractAmount = await contract.getBalance()
         setContractAmount(contractAmount)
+
+        console.log("Shursh key v", import.meta.env.VITE_SHURSH)
     }
 
     const { sender, setOptions } = useTonConnectSender()

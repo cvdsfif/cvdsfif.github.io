@@ -9,5 +9,6 @@ export default defineConfig({
     TanStackRouterVite(),
     nodePolyfills(),
     react(),
-  ]
+  ],
+  envDir: "./"
 })
