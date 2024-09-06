@@ -8,11 +8,15 @@ import { Button } from 'primereact/button'
 import { toNano } from '@ton/core'
 import { RadioButton } from "primereact/radiobutton"
 import { useTonConnectSender, useTonContract } from 'use-ton-connect-sender'
+import { toTon } from '../../../util/to-ton'
+import { TonTransactionsList } from '../../../components/TonTransactionsList'
 
 export const AMOUNT_FOR_GAS = toNano("0.02")
 export const CONTRACT_TESTNET_ADDRESS = "EQA9dUWjN-Q_rPJv1e2SVs1WCYue0Llz9VYgty3ih14wRPF5"
 export const CONTRACT_MAINNET_ADDRESS = "EQB6M4YDpEO2t_E2jvKdgHq2ktLzNo5i57Khs7iVr-HrkrKH"
 const manifestUrl = "https://www.zykov.com/manifest.json"
+export const NANO_IN_TON = 1_000_000_000n
+
 
 const ConnectedComponent = () => {
     const [contractAddress, setContractAddress] = useState(CONTRACT_MAINNET_ADDRESS)
@@ -23,25 +27,22 @@ const ConnectedComponent = () => {
 
     const context = Route.useRouteContext()
     const lang = context.lang
+    const isTestnet = useRef(false)
+    isTestnet.current = contractAddress !== CONTRACT_MAINNET_ADDRESS
 
     const mainContract = useTonContract(
-        contractAddress === CONTRACT_TESTNET_ADDRESS ? "testnet" : "mainnet",
+        isTestnet.current ? "testnet" : "mainnet",
         contractAddress,
         NzComTact
     )
     const mainContractRef = useRef<typeof mainContract | undefined>()
     mainContractRef.current = mainContract
 
-    const toTon = (amount: bigint) => `${Math.round(Number(amount / 1_000_000_000n))
-        } TON ${Intl.NumberFormat(translate("codepage", lang)).format(amount % 1_000_000_000n)} nano`
-
     const refreshContract = async () => {
         const contract = mainContractRef.current
         if (!contract) return
         const contractAmount = await contract.getBalance()
         setContractAmount(contractAmount)
-
-        console.log("Shursh key v", import.meta.env?.VITE_SHURSH)
     }
 
     const { sender, setOptions } = useTonConnectSender()
@@ -116,7 +117,8 @@ const ConnectedComponent = () => {
             <h1>{translate("deposit-withdrawal", lang)}</h1>
             <div className="grid w-full">
                 <div className="col-2 col-offset-1">{translate("Current amount:", lang)}</div>
-                <div className="col-9 font-bold" data-testid="contractAmount">{contractAmount ? toTon(contractAmount) : translate("Loading...", lang)}</div>
+                <div className="col-9 font-bold" data-testid="contractAmount">{contractAmount ?
+                    toTon(contractAmount, lang) : translate("Loading...", lang)}</div>
                 <div className="col-2 col-offset-1 align-content-center">{translate("Network:", lang)}</div>
                 <div className="col-9 font-bold gap-3">
                     <RadioButton
@@ -124,8 +126,10 @@ const ConnectedComponent = () => {
                         data-testid='mainNetSelector'
                         name='network'
                         value={CONTRACT_MAINNET_ADDRESS}
-                        onChange={() => setContractAddress(CONTRACT_MAINNET_ADDRESS)}
-                        checked={contractAddress === CONTRACT_MAINNET_ADDRESS}
+                        onChange={() => {
+                            setContractAddress(CONTRACT_MAINNET_ADDRESS)
+                        }}
+                        checked={!isTestnet.current}
                         className='ml-2'
                     />
                     <label htmlFor='mainNetSelector' className='ml-2'>Mainnet</label>
@@ -134,8 +138,10 @@ const ConnectedComponent = () => {
                         data-testid='testNetSelector'
                         name='network'
                         value={CONTRACT_TESTNET_ADDRESS}
-                        onChange={() => setContractAddress(CONTRACT_TESTNET_ADDRESS)}
-                        checked={contractAddress === CONTRACT_TESTNET_ADDRESS}
+                        onChange={() => {
+                            setContractAddress(CONTRACT_TESTNET_ADDRESS)
+                        }}
+                        checked={isTestnet.current}
                         className='ml-2'
                     />
                     <label htmlFor='testNetSelector' className='ml-2'>Testnet</label>
@@ -175,17 +181,31 @@ const ConnectedComponent = () => {
                 <div className="col-2 col-offset-1">{translate("Contract address:", lang)}</div>
                 <div className="col-9">{contractAddress}</div>
                 <div className="col-11 col-offset-1"><TonConnectButton /></div>
-                <div className="col-11 col-offset-1 text-xs">
+                <div className="col-11 col-offset-1">
                     {translate("about-contract", lang)} <a
-                        href='https://blog.stackademic.com/ton-contracts-made-easier-an-example-in-tact-language-5a4dd812ecfd'
+                        href='https://blog.stackademic.com/ton-contracts-made-easier-an-example-in-tact-language-5a4dd812ecfd?sk=51a74ca49c99b0126fd8ae7ed4d37dd5'
                         target='_blank'>{translate("this article", lang)}</a>.
+                </div>
+                <div
+                    className='col-12'
+                >
+                    <h3>Contract's transactions</h3>
+                </div>
+                <div
+                    className='col-12'
+                >
+                    <TonTransactionsList
+                        contractAddress={contractAddress}
+                        network={isTestnet.current ? "testnet" : "mainnet"}
+                        lang={lang}
+                    />
                 </div>
             </div>
         </div>
     </div>
 }
 
-export const Route = createLazyFileRoute('/it/tact/ton1')({
+export const Route = createLazyFileRoute('/it/ton/inout')({
     component: () => {
         return <TonConnectUIProvider manifestUrl={manifestUrl}>
             <ConnectedComponent />

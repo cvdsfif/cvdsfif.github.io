@@ -76,11 +76,24 @@ export const Route = createRootRoute({
                             </Link>
                     },
                     {
-                        template: () =>
-                            <Link to="/it/tact/ton1" className="flex align-items-center p-menuitem-link">
-                                <span className="pi pi-code" />
-                                <span className="mx-2">{translate("TON contract", lang)}</span>
-                            </Link>
+                        label: "TON",
+                        icon: "pi pi-money-bill",
+                        items: [
+                            {
+                                template: () =>
+                                    <Link to="/it/ton/inout" className="flex align-items-center p-menuitem-link">
+                                        <span className="pi pi-wallet" />
+                                        <span className="mx-2">{translate("D/W TON contract", lang)}</span>
+                                    </Link>
+                            },
+                            {
+                                template: () =>
+                                    <Link to="/it/ton/xlist" className="flex align-items-center p-menuitem-link">
+                                        <span className="pi pi-list" />
+                                        <span className="mx-2">{translate("Transactions list", lang)}</span>
+                                    </Link>
+                            },
+                        ]
                     },
                 ]
             },
@@ -115,7 +128,12 @@ export const Route = createRootRoute({
         ] as MenuItem[]
 
         const barStart = () => (<div>
-            <TieredMenu popup model={menuItems} ref={menu} breakpoint="767px" />
+            <TieredMenu
+                popup
+                model={menuItems}
+                ref={menu}
+                style={{ width: "auto !important", whiteSpace: "nowrap" }}
+                breakpoint="867px" />
             <Button
                 data-testid="menuButton"
                 label=""

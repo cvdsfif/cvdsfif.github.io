@@ -1,6 +1,6 @@
 import { RouteComponent } from "@tanstack/react-router"
 
-describe("Testing rerouting from senruy root", () => {
+describe("Testing rerouting from senryu root", () => {
     let component: any
     const redirectMock = jest.fn()
 

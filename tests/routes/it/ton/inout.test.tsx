@@ -3,16 +3,7 @@ import { randomAddress } from "@ton/test-utils"
 import { act, fireEvent, render, waitFor } from "@testing-library/react"
 import { RouteComponent } from "@tanstack/react-router"
 import { toNano } from "@ton/core"
-
-const makeImportsSpyable = (toCheck: { path: string, componentsToMock?: string[] }[]) =>
-    toCheck.forEach(({ path, componentsToMock: propsToMock }) => jest.mock(path, () => ({
-        __esModule: true,
-        ...jest.requireActual(path),
-        ...propsToMock?.reduce((acc: any, curr) => {
-            acc[curr] = jest.fn()
-            return acc
-        }, {})
-    })))
+import { makeImportsSpyable } from "../../util/make-imports-spyable"
 
 makeImportsSpyable([
     { path: "@tanstack/react-router", componentsToMock: ["Link"] },
@@ -52,10 +43,20 @@ describe("Testing simple deposit/withdrawal contract", () => {
         send: jest.fn() as any
     } as any
 
+    let fetchData = {}
+    let fetchError: string | undefined = undefined
 
     beforeEach(async () => {
         jest.clearAllMocks()
         jest.useRealTimers()
+
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => fetchError ?
+                    Promise.reject(new Error(fetchError)) :
+                    Promise.resolve(JSON.stringify(fetchData))
+            })
+        ) as any
 
         routeContextMock.mockReturnValue({ lang: "fr" })
         senderAvailable = true
@@ -121,10 +122,15 @@ describe("Testing simple deposit/withdrawal contract", () => {
                 }) as any
             )
 
-        const underTest = await import("../../../../src/routes/it/tact/ton1.lazy")
+        const underTest = await import("../../../../src/routes/it/ton/inout.lazy")
         contractTestnetAddress = underTest.CONTRACT_TESTNET_ADDRESS
         contractMainnetAddress = underTest.CONTRACT_MAINNET_ADDRESS
         amountForGas = underTest.AMOUNT_FOR_GAS
+    })
+
+    afterEach(async () => {
+        fetchData = {}
+        fetchError = undefined
     })
 
     test("Should display loading message when the component is not yet loaded", async () => {
@@ -148,7 +154,7 @@ describe("Testing simple deposit/withdrawal contract", () => {
         const { getByTestId } = await act(() => act(() => render(<Component />)))
 
         // THEN the contract balance is shown
-        expect(getByTestId("contractAmount")).toHaveTextContent("1 TON 0 nano")
+        expect(getByTestId("contractAmount")).toHaveTextContent("1 TON 000 000 000 nano")
 
         // AND the Deposit and Withraw buttons are disabled because of zero amounts chosen
         expect(getByTestId("depositButton")).toBeDisabled()
@@ -257,7 +263,7 @@ describe("Testing simple deposit/withdrawal contract", () => {
         jest.advanceTimersToNextTimer()
 
         // THEN the contract balance is shown
-        await waitFor(() => expect(getByTestId("contractAmount")).toHaveTextContent("2 TON 0 nano"))
+        await waitFor(() => expect(getByTestId("contractAmount")).toHaveTextContent("2 TON 000 000 000 nano"))
     })
 
     test("Should initialize the testnet connection when the corresponding button is selected", async () => {

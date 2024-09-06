@@ -15,6 +15,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as SenryuImport } from './routes/senryu'
 import { Route as LanguagesImport } from './routes/languages'
+import { Route as ItTonXlistImport } from './routes/it/ton/xlist'
+import { Route as ItTonXlistNetworkImport } from './routes/it/ton/xlist.$network'
 
 // Create Virtual Routes
 
@@ -23,7 +25,7 @@ const IndexLazyImport = createFileRoute('/')()
 const SenryuIdLazyImport = createFileRoute('/senryu/$id')()
 const ItRepositoriesLazyImport = createFileRoute('/it/repositories')()
 const ItArticlesLazyImport = createFileRoute('/it/articles')()
-const ItTactTon1LazyImport = createFileRoute('/it/tact/ton1')()
+const ItTonInoutLazyImport = createFileRoute('/it/ton/inout')()
 
 // Create/Update Routes
 
@@ -64,10 +66,20 @@ const ItArticlesLazyRoute = ItArticlesLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/it/articles.lazy').then((d) => d.Route))
 
-const ItTactTon1LazyRoute = ItTactTon1LazyImport.update({
-  path: '/it/tact/ton1',
+const ItTonInoutLazyRoute = ItTonInoutLazyImport.update({
+  path: '/it/ton/inout',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/it/tact/ton1.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/it/ton/inout.lazy').then((d) => d.Route))
+
+const ItTonXlistRoute = ItTonXlistImport.update({
+  path: '/it/ton/xlist',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ItTonXlistNetworkRoute = ItTonXlistNetworkImport.update({
+  path: '/$network',
+  getParentRoute: () => ItTonXlistRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -122,12 +134,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SenryuIdLazyImport
       parentRoute: typeof SenryuImport
     }
-    '/it/tact/ton1': {
-      id: '/it/tact/ton1'
-      path: '/it/tact/ton1'
-      fullPath: '/it/tact/ton1'
-      preLoaderRoute: typeof ItTactTon1LazyImport
+    '/it/ton/xlist': {
+      id: '/it/ton/xlist'
+      path: '/it/ton/xlist'
+      fullPath: '/it/ton/xlist'
+      preLoaderRoute: typeof ItTonXlistImport
       parentRoute: typeof rootRoute
+    }
+    '/it/ton/inout': {
+      id: '/it/ton/inout'
+      path: '/it/ton/inout'
+      fullPath: '/it/ton/inout'
+      preLoaderRoute: typeof ItTonInoutLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/it/ton/xlist/$network': {
+      id: '/it/ton/xlist/$network'
+      path: '/$network'
+      fullPath: '/it/ton/xlist/$network'
+      preLoaderRoute: typeof ItTonXlistNetworkImport
+      parentRoute: typeof ItTonXlistImport
     }
   }
 }
@@ -141,7 +167,8 @@ export const routeTree = rootRoute.addChildren({
   AboutLazyRoute,
   ItArticlesLazyRoute,
   ItRepositoriesLazyRoute,
-  ItTactTon1LazyRoute,
+  ItTonXlistRoute: ItTonXlistRoute.addChildren({ ItTonXlistNetworkRoute }),
+  ItTonInoutLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -158,7 +185,8 @@ export const routeTree = rootRoute.addChildren({
         "/about",
         "/it/articles",
         "/it/repositories",
-        "/it/tact/ton1"
+        "/it/ton/xlist",
+        "/it/ton/inout"
       ]
     },
     "/": {
@@ -186,8 +214,18 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "senryu.$id.lazy.tsx",
       "parent": "/senryu"
     },
-    "/it/tact/ton1": {
-      "filePath": "it/tact/ton1.lazy.tsx"
+    "/it/ton/xlist": {
+      "filePath": "it/ton/xlist.tsx",
+      "children": [
+        "/it/ton/xlist/$network"
+      ]
+    },
+    "/it/ton/inout": {
+      "filePath": "it/ton/inout.lazy.tsx"
+    },
+    "/it/ton/xlist/$network": {
+      "filePath": "it/ton/xlist.$network.tsx",
+      "parent": "/it/ton/xlist"
     }
   }
 }

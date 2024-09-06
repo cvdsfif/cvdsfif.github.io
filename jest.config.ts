@@ -14,7 +14,15 @@ export default {
           before: [
             {
               path: 'node_modules/ts-jest-mock-import-meta',  // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
-              options: { metaObjectReplacement: { url: 'https://www.url.com' } }
+              options: {
+                metaObjectReplacement: {
+                  url: 'https://www.url.com',
+                  env: {
+                    VITE_TONWEB_MAINNET_KEY: "mainnet_key",
+                    VITE_TONWEB_TESTNET_KEY: "testnet_key"
+                  }
+                },
+              }
             }
           ]
         },
