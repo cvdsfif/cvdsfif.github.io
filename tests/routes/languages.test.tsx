@@ -1,7 +1,6 @@
 import { RouteComponent } from "@tanstack/react-router"
-import { render, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
-import { act, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 describe("Testing the languages presentation page's loader component", () => {
     let extractedComponent: any
