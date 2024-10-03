@@ -182,7 +182,6 @@ export const TonTransactionsList = (props: TonTransactionsListProps) => {
     const isTestnet = useRef(false)
     isTestnet.current = props.network === "testnet"
     tonwebKeyRef.current = isTestnet.current ? import.meta.env?.VITE_TONWEB_TESTNET_KEY : import.meta.env?.VITE_TONWEB_MAINNET_KEY
-    console.log("Current webkey", tonwebKeyRef.current)
 
     const refreshContract = async () => {
         const contract = contractAddressRef.current

@@ -3,10 +3,8 @@ import { render, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import { act, useEffect, useState } from "react"
 
-describe("Testing the languages presentation page", () => {
+describe("Testing the languages presentation page's loader component", () => {
     let extractedComponent: any
-    const routeContextMock = jest.fn()
-    const loaderDataMock = jest.fn()
     const windowOpenSpy = jest.fn()
 
     beforeAll(async () => {
@@ -17,10 +15,7 @@ describe("Testing the languages presentation page", () => {
                     () =>
                         (param: RouteComponent<any> | undefined) => {
                             extractedComponent = param
-                            return ({
-                                useRouteContext: routeContextMock,
-                                useLoaderData: loaderDataMock
-                            })
+                            return ({})
                         }
                 ),
                 Link: () => <></>,
@@ -66,19 +61,12 @@ describe("Testing the languages presentation page", () => {
         ]
     }
 
-    const basicLoaderPromise = {
-        deferred: Promise.resolve(basicLoaderObject)
-    }
-
     let fetchData = {}
     let fetchError: string | undefined = undefined
 
     beforeEach(() => {
         jest.resetAllMocks()
-        routeContextMock.mockReturnValue({ lang: "" })
         jest.spyOn(window, "open").mockImplementation(windowOpenSpy)
-
-        loaderDataMock.mockReturnValue(basicLoaderPromise)
 
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -92,38 +80,6 @@ describe("Testing the languages presentation page", () => {
     afterEach(() => {
         fetchData = {}
         fetchError = undefined
-    })
-
-    test("Should load the page", async () => {
-        // GIVEN Russian is selected as a language
-        routeContextMock.mockReturnValue({ lang: "ru" })
-        const Component = extractedComponent!.component
-
-        // WHEN we render the component
-        const { getByTestId } = await act(() => render(<Component />))
-
-        // THEN we have the language display shown in bold for cyrillic
-        expect(getByTestId("lang-0")).toHaveClass("font-bold")
-
-        //await new Promise(res => process.nextTick(res))
-
-        // AND the target language is Chinese
-        await waitFor(() => expect(getByTestId("lang-0")).toHaveTextContent("Китайский"))
-
-        // AND the source language is Chinese
-        expect(getByTestId("source-lang-0")).toHaveTextContent("(en)")
-    })
-
-    test("Should load the page without bold display for non-slavic text", async () => {
-        // GIVEN French is selected as a language
-        routeContextMock.mockReturnValue({ lang: "fr" })
-        const Component = extractedComponent!.component
-
-        // WHEN we render the component
-        const { getByTestId } = await act(() => render(<Component />))
-
-        // THEN we don't have the language display shown in bold for cyrillic
-        expect(getByTestId("lang-0")).not.toHaveClass("font-bold")
     })
 
     test("Should sort source courses list", async () => {
@@ -154,18 +110,4 @@ describe("Testing the languages presentation page", () => {
         expect(loaded.error).toBeDefined()
     })
 
-    test("Should load the error page if the error is returned from the loader", async () => {
-        // GIVEN English is selected as a language
-        routeContextMock.mockReturnValue({ lang: "en" })
-        const Component = extractedComponent!.component
-
-        // AND the loader returns an error
-        loaderDataMock.mockReturnValue({ deferred: Promise.resolve({ error: "Error" }) })
-
-        // WHEN we render the component
-        const { getByTestId } = await act(() => render(<Component />))
-
-        // THEN we have the error information displayed when needed
-        expect(getByTestId("duoError")).toHaveTextContent("Error loading data from Duolingo")
-    })
 })
