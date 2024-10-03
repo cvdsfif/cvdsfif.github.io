@@ -13,7 +13,7 @@ import { TonTransactionsList } from '../../../components/TonTransactionsList'
 
 export const AMOUNT_FOR_GAS = toNano("0.02")
 export const CONTRACT_TESTNET_ADDRESS = "EQA9dUWjN-Q_rPJv1e2SVs1WCYue0Llz9VYgty3ih14wRPF5"
-export const CONTRACT_MAINNET_ADDRESS = "EQB6M4YDpEO2t_E2jvKdgHq2ktLzNo5i57Khs7iVr-HrkrKH"
+export const CONTRACT_MAINNET_ADDRESS = "EQA83ZyoAmxP9EkKddsK4JK3yExB_G4EkNblgXb85kqEL0dj"
 const manifestUrl = "https://www.zykov.com/manifest.json"
 export const NANO_IN_TON = 1_000_000_000n
 

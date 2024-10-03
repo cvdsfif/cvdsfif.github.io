@@ -42,7 +42,7 @@ const SenryuRoute = SenryuImport.update({
 const LanguagesRoute = LanguagesImport.update({
   path: '/languages',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/languages.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -79,7 +79,9 @@ const ItTonXlistRoute = ItTonXlistImport.update({
 const ItTonXlistNetworkRoute = ItTonXlistNetworkImport.update({
   path: '/$network',
   getParentRoute: () => ItTonXlistRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/it/ton/xlist.$network.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 

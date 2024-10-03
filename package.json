@@ -1,7 +1,7 @@
 {
   "name": "nzcom-client",
   "private": true,
-  "version": "0.4.2",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@happy-dom/jest-environment": "^14.12.3",
+    "@mojojoejo/vite-plugin-purgecss": "^1.1.0",
     "@tanstack/router-devtools": "^1.43.12",
     "@tanstack/router-plugin": "^1.43.12",
     "@testing-library/jest-dom": "^6.4.6",
