@@ -11,14 +11,18 @@ describe("Testing the root route", () => {
 
     const mockGetItem = jest.fn()
     const mockSetItem = jest.fn()
-    Object.defineProperty(window, "localStorage", {
-        value: {
-            getItem: (...args: string[]) => mockGetItem(...args),
-            setItem: (...args: string[]) => mockSetItem(...args),
-        },
-    })
+    const mockRedirect = jest.fn()
+
+    let LANGUAGE_SELECTED_KEY = ""
 
     beforeAll(async () => {
+        Object.defineProperty(window, "localStorage", {
+            value: {
+                getItem: (...args: string[]) => mockGetItem(...args),
+                setItem: (...args: string[]) => mockSetItem(...args),
+            },
+        })
+
         jest.mock(
             "@tanstack/react-router",
             () => ({
@@ -35,7 +39,8 @@ describe("Testing the root route", () => {
                     data-testid={props["data-testid"]}
                     onClick={props.onClick}
                 ></span>,
-                useRouter: () => ({ invalidate: routerInvalidateMock })
+                useRouter: () => ({ invalidate: routerInvalidateMock }),
+                redirect: mockRedirect
             })
         )
 
@@ -49,7 +54,8 @@ describe("Testing the root route", () => {
             })
         )
 
-        await import("../../src/routes/__root")
+        const rootImported = await import("../../src/routes/__root")
+        LANGUAGE_SELECTED_KEY = rootImported.LANGUAGE_SELECTED_KEY
     })
 
     let languageFront: any
@@ -83,7 +89,7 @@ describe("Testing the root route", () => {
         const beforeLoadFunction = extractedComponent!.beforeLoad
 
         // WHEN we call beforeLoad
-        const returnValue = await beforeLoadFunction()
+        const returnValue = await beforeLoadFunction({ location: "" })
 
         // THEN the context value returned reflects the language
         expect(returnValue).toEqual({ lang: "en" })
@@ -97,7 +103,7 @@ describe("Testing the root route", () => {
         const beforeLoadFunction = extractedComponent!.beforeLoad
 
         // WHEN we call beforeLoad
-        const returnValue = await beforeLoadFunction()
+        const returnValue = await beforeLoadFunction({ location: "" })
 
         // THEN the context value returned reflects the brower's language
         expect(returnValue).toEqual({ lang: "fr" })
@@ -111,7 +117,7 @@ describe("Testing the root route", () => {
         const beforeLoadFunction = extractedComponent!.beforeLoad
 
         // WHEN we call beforeLoad
-        const returnValue = await beforeLoadFunction()
+        const returnValue = await beforeLoadFunction({ location: "" })
 
         // THEN the context value returned reflects the language
         expect(returnValue).toEqual({ lang: "en" })
@@ -195,7 +201,7 @@ describe("Testing the root route", () => {
         const beforeLoadFunction = extractedComponent!.beforeLoad
 
         // WHEN we call beforeLoad
-        const returnValue = await beforeLoadFunction()
+        const returnValue = await beforeLoadFunction({ location: "" })
 
         // THEN the context value returned reflects the language
         expect(returnValue).toEqual({ lang: "hu" })
@@ -217,5 +223,20 @@ describe("Testing the root route", () => {
 
         // THEN it renders without exceptions and we get the root element in it
         await waitFor(() => expect(screen.getByTestId("senryuLink")).toBeDefined())
+    })
+
+    test("Should change the language when page path starts with language code", async () => {
+        // GIVEN  we extract the beforeLoad function from the route's root component
+        const beforeLoadFunction = extractedComponent!.beforeLoad
+
+        // WHEN we call beforeLoad
+        // THEN an internal exception is thrown
+        expect(() => beforeLoadFunction({ location: { pathname: "/FR/page" } })).toThrow()
+
+        // THEN the call is redirected to a correct page
+        expect(mockRedirect).toHaveBeenCalledWith({ to: "/page" })
+
+        // AND the context value returned reflects the language
+        expect(mockSetItem).toHaveBeenCalledWith(LANGUAGE_SELECTED_KEY, `"fr"`)
     })
 })

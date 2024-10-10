@@ -1,4 +1,4 @@
-import { createRootRoute, Link, Outlet, useRouter } from '@tanstack/react-router'
+import { createRootRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router'
 import { translate } from '../util/translate'
 import { Toolbar } from "primereact/toolbar"
 import { TieredMenu } from "primereact/tieredmenu"
@@ -23,7 +23,15 @@ export const LANGUAGE_SELECTED_KEY = "languageSelected"
 const browserOrDefaultLanguage = () => languages.find(language => window.navigator.language?.startsWith(language.value))?.value ?? "en"
 
 export const Route = createRootRoute({
-    beforeLoad: async () => {
+    beforeLoad: ({ location }) => {
+        for (const language of languages) {
+            if (!location.pathname?.toLowerCase().startsWith(`/${language.value}/`))
+                continue
+            putValueToStorage(LANGUAGE_SELECTED_KEY, language.value)
+            throw redirect({
+                to: location.pathname?.substring(3),
+            })
+        }
         return {
             lang: getValueFromStorage(LANGUAGE_SELECTED_KEY, browserOrDefaultLanguage())
         }
