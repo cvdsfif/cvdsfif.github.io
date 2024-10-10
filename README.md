@@ -9,5 +9,4 @@ For those who look into the site's code, there are few interesting technics used
 - It has 100% [test coverage](https://github.com/cvdsfif/cvdsfif.github.io/tree/main/tests/routes). Some tricky aspects of it are described [in this article](https://medium.com/stackademic/using-tanstack-router-in-react-spas-tdd-way-0aa7d2aabfff?sk=3b859aa49e74398655f3383ad00b25af).
 - Downloadable components' size is optimized with Tanstack's lazy loaded routes and [PurgeCSS](https://purgecss.com/) plugin with [custom configuration](https://github.com/cvdsfif/cvdsfif.github.io/blob/main/vite.config.ts) to keep dynamic CSS classes in the loop.
 - It has a couple of [built-in DApps](https://github.com/cvdsfif/cvdsfif.github.io/tree/main/tests/routes/it/ton) connected to the TON blockchain.
-- It uses IndexedDB for local data storage on the client's browser.
 - It is connected to [Duolingo](https://www.duolingo.com/learn) using its (unofficial) API.

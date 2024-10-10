@@ -10,7 +10,7 @@ import 'primeicons/primeicons.css'
 import "primeflex/primeflex.css"
 import { MenuItem } from 'primereact/menuitem'
 import { useRef } from 'react'
-import { loadStoredData, useIndexedDbState } from "use-indexed-db-state";
+import { getValueFromStorage, putValueToStorage } from '../util/use-local-storage'
 
 const languages = [
     { value: "en", label: "EN" },
@@ -25,7 +25,7 @@ const browserOrDefaultLanguage = () => languages.find(language => window.navigat
 export const Route = createRootRoute({
     beforeLoad: async () => {
         return {
-            lang: await loadStoredData(LANGUAGE_SELECTED_KEY) as string | undefined ?? browserOrDefaultLanguage()
+            lang: getValueFromStorage(LANGUAGE_SELECTED_KEY, browserOrDefaultLanguage())
         }
     },
     component: () => {
@@ -33,20 +33,17 @@ export const Route = createRootRoute({
         const context = Route.useRouteContext()
         const menu = useRef(null as TieredMenu | null)
 
-        const [lang, setLang, langLoaded] = useIndexedDbState(
-            LANGUAGE_SELECTED_KEY,
-            browserOrDefaultLanguage(),
-            {
-                storedCallback() {
-                    router.invalidate()
-                }
-            }
-        )
-
         if (!context) {
             console.warn("Invalidating due to empty context")
             setTimeout(() => router.invalidate(), 100)
-            return <div data-testid="loadingPlaceholder">{translate("Loading...", lang)}</div>
+            return <div data-testid="loadingPlaceholder">{translate("Loading...", getValueFromStorage(LANGUAGE_SELECTED_KEY, browserOrDefaultLanguage()))}</div>
+        }
+
+        const lang = context.lang
+
+        const setLang = (l: string) => {
+            putValueToStorage(LANGUAGE_SELECTED_KEY, l)
+            router.invalidate()
         }
 
         const menuItems = [
@@ -149,7 +146,6 @@ export const Route = createRootRoute({
             value={lang}
             options={languages}
             optionLabel="label"
-            disabled={!langLoaded}
             onChange={e => {
                 setLang(e.value)
             }}

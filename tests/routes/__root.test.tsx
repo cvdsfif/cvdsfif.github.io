@@ -7,32 +7,16 @@ describe("Testing the root route", () => {
     let extractedComponent: any
     const routerInvalidateMock = jest.fn()
     const routeContextMock = jest.fn()
-    const loadStoredDataMock = jest.fn()
     let invalidateContext = false
-    let storedCallbackFromHook: () => void
 
-    const indexedDbStubClosure = () => {
-        const valuesDictionary: { [k: string]: any } = {}
-        const valuesLoaded: { [k: string]: boolean } = {}
-        return {
-            hookFunction: (key: string, initialValue: any, { storedCallback }: { storedCallback: () => void }) => {
-                storedCallbackFromHook = storedCallback
-                return [
-                    valuesDictionary[key] ? valuesDictionary[key] : valuesDictionary[key] = initialValue,
-                    (value: any) => valuesDictionary[key] = value,
-                    valuesLoaded[key] === true ? true : false,
-                    () => valuesDictionary[key] = undefined
-                ]
-            },
-            simulateIsLoaded: (key: string) => valuesLoaded[key] = true,
-            simulateStoredValue: (key: string, value: any) => valuesDictionary[key] = value,
-            reset: () => {
-                Object.keys(valuesDictionary).forEach(k => delete valuesDictionary[k])
-                Object.keys(valuesLoaded).forEach(k => delete valuesLoaded[k])
-            }
-        }
-    }
-    const indexedDbStub = indexedDbStubClosure()
+    const mockGetItem = jest.fn()
+    const mockSetItem = jest.fn()
+    Object.defineProperty(window, "localStorage", {
+        value: {
+            getItem: (...args: string[]) => mockGetItem(...args),
+            setItem: (...args: string[]) => mockSetItem(...args),
+        },
+    })
 
     beforeAll(async () => {
         jest.mock(
@@ -65,11 +49,6 @@ describe("Testing the root route", () => {
             })
         )
 
-        jest.mock("use-indexed-db-state", () => ({
-            useIndexedDbState: indexedDbStub.hookFunction,
-            loadStoredData: loadStoredDataMock
-        }))
-
         await import("../../src/routes/__root")
     })
 
@@ -78,8 +57,6 @@ describe("Testing the root route", () => {
     beforeEach(() => {
         jest.useFakeTimers()
         jest.resetAllMocks()
-
-        indexedDbStub.reset()
 
         routeContextMock.mockReturnValue({ lang: "" })
         languageFront = jest.spyOn(window.navigator, "language", "get")
@@ -116,31 +93,14 @@ describe("Testing the root route", () => {
         // GIVEN navigator returns default language value
         languageFront.mockReturnValue("fr-FR")
 
-        // AND the root route's main component
-        const Component = extractedComponent!.component
+        // AND we extract the beforeLoad function from the route's root component
+        const beforeLoadFunction = extractedComponent!.beforeLoad
 
-        // WHEN we render the main component
-        const { getByTestId } = render(<Component />)
+        // WHEN we call beforeLoad
+        const returnValue = await beforeLoadFunction()
 
-        // THEN the context value returned reflects the language
-        jest.useRealTimers()
-        await waitFor(() => expect(getByTestId("languageValue")).toHaveTextContent("fr"))
-    })
-
-    test("Should load the language value from local storage in priority", async () => {
-        // GIVEN the language value loaded from local storage
-        indexedDbStub.simulateStoredValue("languageSelected", "hu")
-
-        // AND navigator returns different language value
-        languageFront.mockReturnValue("de-DE")
-
-        // WHEN we call rendering the component
-        const Component = extractedComponent!.component
-        const { getByTestId } = render(<Component />)
-
-        // THEN the context value returned reflects the language
-        jest.useRealTimers()
-        await waitFor(() => expect(getByTestId("languageValue")).toHaveTextContent("hu"))
+        // THEN the context value returned reflects the brower's language
+        expect(returnValue).toEqual({ lang: "fr" })
     })
 
     test("If no language value is returned, should set English by default", async () => {
@@ -182,9 +142,6 @@ describe("Testing the root route", () => {
         // WHEN the link to change the language is clicked
         const link = getByTestId(container, "languageSelector")
         await fireEvent.change(link, { target: { value: "fr" } })
-
-        // AND the stored callback is called
-        storedCallbackFromHook()
 
         // THEN it invalidates the router to show the page with a correct language
         await waitFor(() => expect(routerInvalidateMock).toHaveBeenCalled())
@@ -230,12 +187,26 @@ describe("Testing the root route", () => {
         await waitFor(() => expect(getByTestId(container, "languageValue")).toHaveTextContent("en"))
     })
 
+    test("Should load the language value from local storage in priority", async () => {
+        // GIVEN the language value loaded from local storage
+        mockGetItem.mockReturnValue("\"hu\"")
+
+        // AND we extract the beforeLoad function from the route's root component
+        const beforeLoadFunction = extractedComponent!.beforeLoad
+
+        // WHEN we call beforeLoad
+        const returnValue = await beforeLoadFunction()
+
+        // THEN the context value returned reflects the language
+        expect(returnValue).toEqual({ lang: "hu" })
+    })
+
     test("Should show the senryu link when Russian is selected", async () => {
         // GIVEN the root route's main component
         const Component = extractedComponent!.component
 
-        // AND the language value loaded from local storage
-        indexedDbStub.simulateStoredValue("languageSelected", "ru")
+        // AND the language value loaded
+        routeContextMock.mockReturnValue({ lang: "ru" })
 
         // AND we render the main component
         const { container } = render(<Component />)
