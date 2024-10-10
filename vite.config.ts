@@ -12,6 +12,12 @@ export default defineConfig({
     react(),
     pluginPurgeCss({
       variables: true,
+      content: [
+        "./src/**/*.{js,jsx,ts,tsx,html}",
+        "./node_modules/primereact/**/*.js"
+      ],
+      defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+      safelist: ["html", "body", "p-tag-success", "p-tag-danger", "p-tag-warning", "p-tag-info",],
     }),
   ],
   envDir: "./"

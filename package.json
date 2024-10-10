@@ -1,14 +1,14 @@
 {
   "name": "nzcom-client",
   "private": true,
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest $npm_config_dir"
+    "test": "jest $npm_config_dir && npx coverage-badges"
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
@@ -42,6 +42,7 @@
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "coverage-badges": "^1.0.7",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",

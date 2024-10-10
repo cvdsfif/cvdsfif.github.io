@@ -186,7 +186,7 @@ const tableFr: { [key: string]: string } = {
     "about-contract": "Pour savoir plus sur ce contrat, lisez ",
     "this article": "cet article",
     "D/W TON contract": "Contrat TON D/R",
-    "repositories.thisSite.tact-example": "Exemple du contrat TON utilisé sur ce site qui est écrit en langage Tact",
+    "repositories.thisSite.tact-example": "Exemple du contrat TON utilisé sur ce site écrit en langage Tact",
     "repositories.usetonconnect.about": "Hooks de connection pour les contrats TON faisant le pont entre TonConnect et les adapteurs des contrats",
     "React hook libs": "Bibliothèques des hooks React",
     "Transactions list": "Liste des transactions",

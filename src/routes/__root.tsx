@@ -5,6 +5,7 @@ import { TieredMenu } from "primereact/tieredmenu"
 import { Button } from "primereact/button"
 import { Dropdown } from 'primereact/dropdown'
 import "primereact/resources/themes/bootstrap4-light-blue/theme.css"
+import "primereact/resources/primereact.min.css"
 import 'primeicons/primeicons.css'
 import "primeflex/primeflex.css"
 import { MenuItem } from 'primereact/menuitem'

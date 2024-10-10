@@ -1,31 +1,13 @@
-# React + TypeScript + Vite
+# Nikit Zykov's website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Coverage](./badges/coverage.svg)
 
-Currently, two official plugins are available:
+For those who look into the site's code, there are few interesting technics used here:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# nzcom
+- The site is built with [React](https://react.dev/) / [Vite](https://vite.dev/), as described [in this memo](https://medium.com/stackademic/creating-and-deploying-a-typescript-react-web-app-with-vite-quick-memo-5e99323cf63d?sk=72672b0e1277ee3516727f5f4298da31).
+- The site's navigation structure is built with [Tanstack router](https://tanstack.com/router/latest). It uses few special techniques like [default routes](https://github.com/cvdsfif/cvdsfif.github.io/blob/main/src/routes/languages.lazy.tsx) and internationalization with router's context.
+- It has 100% [test coverage](https://github.com/cvdsfif/cvdsfif.github.io/tree/main/tests/routes). Some tricky aspects of it are described [in this article](https://medium.com/stackademic/using-tanstack-router-in-react-spas-tdd-way-0aa7d2aabfff?sk=3b859aa49e74398655f3383ad00b25af).
+- Downloadable components' size is optimized with Tanstack's lazy loaded routes and [PurgeCSS](https://purgecss.com/) plugin with [custom configuration](https://github.com/cvdsfif/cvdsfif.github.io/blob/main/vite.config.ts) to keep dynamic CSS classes in the loop.
+- It has a couple of [built-in DApps](https://github.com/cvdsfif/cvdsfif.github.io/tree/main/tests/routes/it/ton) connected to the TON blockchain.
+- It uses IndexedDB for local data storage on the client's browser.
+- It is connected to [Duolingo](https://www.duolingo.com/learn) using its (unofficial) API.

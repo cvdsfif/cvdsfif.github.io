@@ -51,7 +51,7 @@ export const Route = createLazyFileRoute('/it/repositories')({
                     title={translate("React hook libs", lang)}
                     repositories={[
                         { id: 1, about: "repositories.usetonconnect.about", url: "https://github.com/cvdsfif/use-ton-connect-sender" },
-                        { about: "repositories.idbhook.about", url: "https://github.com/cvdsfif/cvdsfif.github.io" },
+                        { about: "repositories.idbhook.about", url: "https://github.com/cvdsfif/use-indexed-db" },
                     ]}
                 /><br />
                 <RepositoryCard
