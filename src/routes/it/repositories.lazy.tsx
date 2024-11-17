@@ -68,7 +68,6 @@ export const Route = createLazyFileRoute('/it/repositories')({
                     repositories={[
                         { about: "repositories.typizator.about", url: "https://github.com/cvdsfif/typizator" },
                         { about: "repositories.typizator-handler.about", url: "https://github.com/cvdsfif/typizator-handler" },
-                        { about: "repositories.cdk-typescript-lib.about", url: "https://github.com/cvdsfif/cdk-typescript-lib" },
                         { about: "repositories.typizator-client.about", url: "https://github.com/cvdsfif/typizator-client" },
                         { about: "repositories.typizator-test.about", url: "https://github.com/cvdsfif/typizator-test" },
                     ]}
