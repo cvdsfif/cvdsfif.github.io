@@ -1,0 +1,7 @@
+{
+    "name": "Vrode Coin",
+    "symbol": "VRODE",
+    "description": "This jetton has a standard price in TON growing randomly",
+    "decimals": 9,
+    "image": "https://www.zykov.com/token/vrode.png"
+}
